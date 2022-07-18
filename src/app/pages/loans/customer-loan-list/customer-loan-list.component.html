@@ -1,0 +1,112 @@
+<ngx-spinner></ngx-spinner>
+<div class="card-heading">
+    <span>Loan List</span>
+</div>
+<div class="card">
+    <div class="card-body">
+        <!-- SEARCH -->
+        <div class="col-sm-12 search-hero ml-auto mb-3 mid-y p-0 d-flex">
+            <!-- <mat-icon>search</mat-icon> -->
+            <input #filter placeholder="Search.."
+                class="form-control form-control-sm rounded-pill col-md-4 border-dark mr-2"
+                (keyup)="applyFilter($event)">
+            <button type="button" class="btn-add ml-auto" title="Add"
+                *ngIf="userType == constant.AGENT_TYPE_CODE && isAdd" [routerLink]="['/customer-create-edit']"
+                [queryParams]="{ type: 'CLL'}">
+                +
+            </button>
+        </div>
+        <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource" matSort style="white-space: nowrap;">
+                <ng-container matColumnDef="index">
+                    <th mat-header-cell *matHeaderCellDef>S.No</th>
+                    <td mat-cell *matCellDef="let element; let i = index;">{{i+1+(paginator.pageIndex *
+                        paginator.pageSize)}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="loanapplicationnumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Loan Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.loanapplicationnumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="loantype">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Loan Type</th>
+                    <td mat-cell *matCellDef="let element"> {{element.loanname}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="firstname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Full Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.firstname}} {{element.lastname}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="mobilenumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile </th>
+                    <td mat-cell *matCellDef="let element"> {{element.mobilenumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="statusname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.statusname}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="row mx-0">
+                            <div class="col-6 p-0  text-center d-flex align-items-center justify-content-center">
+                                <!-- Agent -->
+                                <i class="mdi mdi-lead-pencil h4 mb-0" title="Edit" style="color:#00b3ff;"
+                                    *ngIf="userType == constant.AGENT_TYPE_CODE && element.applicationstatusid == constant.REJECTED_BY_VALIDATOR_1"
+                                    (click)="loanEdit(element.loanapplicationid)"></i>
+
+                                <!-- Validator - 1 -->
+                                <i class="mdi mdi-lead-pencil h4 mb-0" title="Edit" style="color:#00b3ff;"
+                                    *ngIf="userType == constant.VALIDATOR_1_TYPE_CODE && (element.applicationstatusid == constant.VALIDATOR_1_RESPONSE 
+                                    || element.applicationstatusid == constant.PENDING_VALIDATOR_1_RESPONSE || element.applicationstatusid == constant.REJECTED_BY_VALIDATOR_2)"
+                                    (click)="loanEdit(element.loanapplicationid, true)"></i>
+
+                                <!-- Validator - 2 -->
+                                <i class="mdi mdi-lead-pencil h4 mb-0" title="Edit" style="color:#00b3ff;"
+                                    *ngIf="userType == constant.VALIDATOR_2_TYPE_CODE && (element.applicationstatusid == constant.VALIDATOR_2_RESPONSE 
+                                    || element.applicationstatusid == constant.PENDING_VALIDATOR_2_RESPONSE || element.applicationstatusid == constant.REJECTED_BY_APPROVER)"
+                                    (click)="loanEdit(element.loanapplicationid, true)"></i>
+
+                                <!-- Approver -->
+                                <i class="mdi mdi-lead-pencil h4 mb-0" title="Edit" style="color:#00b3ff;" *ngIf="userType == constant.APPROVER_TYPE_CODE && (element.applicationstatusid == constant.APPROVER_RESPONSE 
+                                    || element.applicationstatusid == constant.PENDING_APPROVED_RESPONSE)"
+                                    (click)="loanEdit(element.loanapplicationid, true)"></i>
+                            </div>
+                            <div class="col-6 p-0 text-center">
+                                <!-- All rolls view -->
+                                <i class="mdi mdi-eye h3 mb-0" title="view" style="color:rgb(34, 33, 33);"
+                                    (click)="loanView(element.loanapplicationid)"></i>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="noData">
+                    <mat-footer-cell *matFooterCellDef colspan="5">
+                        <p style="width: 100%;text-align: center; position: absolute;">
+                            {{ dataSource.data.length != 0 && dataSource.filteredData.length == 0 ? 'No result(s)
+                            found'
+                            : 'No data available' }}
+                        </p>
+                    </mat-footer-cell>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <mat-row *ngIf="dataSource.data.length == 0">
+                    {{ dataSource.data.length != 0 && dataSource.filteredData.length == 0 ? 'No result(s) found' :
+                    'No data available' }}
+                </mat-row>
+                <mat-footer-row *matFooterRowDef="['noData']"
+                    [ngClass]="{'hidenoData':!(dataSource.data.length==0 || dataSource.filteredData.length == 0)}">
+                </mat-footer-row>
+            </table>
+            <mat-paginator #paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

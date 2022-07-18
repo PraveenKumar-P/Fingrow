@@ -1,0 +1,612 @@
+
+// Form Field New Design
+// VARIABLES // ============================== //
+$bg-color: #424242;
+$hl-color: #d6a35c;
+$muted-color: mix(white, $bg-color, 70%);
+$trans-time: 300ms;
+$width: 100%;
+
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+
+
+// FORM // ============================== //
+form {
+  hr.sep {
+    background: $hl-color;
+    box-shadow: none;
+    border: none;
+    height: 2px;
+    width: 25%;
+    margin: 0px auto 45px auto;
+  }
+  .emoji {
+    font-size: 1.2em;
+  }
+}
+
+.group {
+  position: relative;
+  margin: 30px 0 15px;
+}
+
+// INPUTS // ============================== //
+textarea {
+  resize: none;
+}
+
+.group > input,
+textarea {
+  background: none;
+  color: #4f4b36;
+  font-size: 14px;
+  padding: 4px 10px 4px 6px;
+  font-family: 'Poppins' !important;
+  display: block;
+  width: $width;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #dedede;
+  &:focus {
+    outline: none;
+  }
+
+  &:focus ~ label,&:valid ~ label,&.validation:not(:placeholder-shown) ~ label{
+    top: -24px;
+    font-size: 12px;
+    color: #764229;
+  }
+
+&.validation:placeholder-shown ~ label{
+  top: 0;
+   font-size: 12px;
+    color: #764229;
+  }
+&:invalid ~ label{
+top: 0px;
+}
+
+  &:focus ~ .bar:before {
+    width: $width;
+  }
+}
+
+
+.group > input[type="password"] {
+  letter-spacing: 0.3em;
+}
+
+
+.group > label {
+    color: #764229;
+    font-size: 12px;
+    font-weight: 500;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 5px;
+    transition: 300ms ease all;
+    font-family: 'Poppins' !important;
+}
+
+.group > label> i {
+    color: #d6a35c;
+}
+
+
+.group > .bar {
+  position: relative;
+  display: block;
+  width: $width;
+  &:before {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 0px;
+    position: absolute;
+    background: $hl-color;
+    transition: $trans-time ease all;
+    left: 0%;
+  }
+}
+
+/* select starting stylings ------------------------------*/
+
+.group > .select-text {
+	position: relative;
+  font-family: 'Poppins' !important;
+	background-color: transparent;
+	width: 100%;
+	padding: 4px 10px 4px 6px;
+	font-size: 14px;
+	border-radius: 0;
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0, 0.12);
+  color: #4f4b36;
+  top: -1px;
+
+}
+
+/* Remove focus */
+.group > .select-text:focus {
+	outline: none;
+	border-bottom: 1px solid rgba(0,0,0, 0);
+}
+
+	/* Use custom arrow */
+.group > .select .select-text {
+	appearance: none;
+	-webkit-appearance:none
+}
+
+.group > .select:after {
+	position: absolute;
+	top: 20px;
+	right: 10px;
+	/* Styling the down arrow */
+	width: 0;
+	height: 0;
+	padding: 0;
+	content: '';
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid #d6a35c;
+	pointer-events: none;
+}
+
+
+/* LABEL ======================================= */
+.group > .select-label {
+    color: #764229;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 5px;
+    transition: 0.2s ease all;
+}
+
+/* active state */
+.group > .select-text:focus ~ .select-label, 
+.group > .select-text:valid ~ .select-label {
+	color: #764229;
+	top: -24px;
+	transition: 0.2s ease all;
+	font-size: 12px;
+}
+
+/* active state */
+.group > .select-text:invalid ~ .select-label {
+	color: #764229;
+	top: 0px !important;
+	transition: 0.2s ease all;
+	font-size: 12px;
+}
+
+/* BOTTOM BARS ================================= */
+.group > .select-bar {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.group > .select-bar:before, .group > .select-bar:after {
+	content: '';
+	height: 2px;
+	width: 0;
+	bottom: 0px;
+	position: absolute;
+	background: #d6a35c;
+	transition: 0.2s ease all;
+  top: -4px;
+}
+
+// .select-bar:before {
+// 	left: 50%;
+// }
+
+// .select-bar:after {
+// 	right: 50%;
+// }
+
+/* active state */
+.group > .select-text:focus ~ .select-bar:before, .group > .select-text:focus ~ .select-bar:after {
+	width: 100%;
+}
+
+/* HIGHLIGHTER ================================== */
+.group > .select-highlight {
+	position: absolute;
+	height: 60%;
+	width: 100px;
+	top: 25%;
+	left: 0;
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+
+.group > input:-internal-autofill-selected {
+    background-color: #fff !important;
+}
+
+
+/* The container */
+.contain-check {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.contain-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.contain-check:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain-check input:checked ~ .checkmark {
+  background-color: #ab8046;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.contain-check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.contain-check .checkmark:after {
+     left: 10px;
+    top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.multiselect-dropdown .dropdown-btn{
+  display: inline-block;
+  border-bottom: 2px solid #b18a54 !important;
+  width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.52857143;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border-radius: 0px !important;
+  border-top: 0px  !important;
+  border-left: 0px  !important;
+  border-right: 0px !important;
+}
+
+::-webkit-input-placeholder { 
+    color: transparent;
+  }
+  
+  :-ms-input-placeholder { 
+    color: transparent;
+  }
+  
+  ::placeholder {
+    color: transparent;
+  }
+
+  .ng-invalid:not(form).ng-touched{
+    border-bottom: 1px solid #d40f0f !important;  
+}
+
+.top-half-icon{
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    border: 2px solid #9e6c28;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    background: linear-gradient(360deg, #a05e2b, #76432a);
+}
+
+.profile-img-container {
+  position: relative;
+  display: inline-block; 
+  overflow: hidden; 
+  border: 1px solid #424242;
+}
+
+.remove-img {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+    margin: 0 auto;
+    color: #ff4f4f !important;
+    // background: #0000007a;
+    font-size: 20px;
+    padding: 5px;
+    // border: 1px solid #ff4f4f;
+}
+
+.card-heading {
+  background: linear-gradient(45deg, #764229 10%, #d6a35c 30%, #9d5d2b00 0%);
+  color: #ffffff;
+  margin: 0px !important;
+  padding: 5px 1.5rem;
+  font-weight: 400 !important;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-shadow: 1px 1px black !important;
+  font-family: "Poppins" !important;
+}
+
+  // td:nth-last-child(2){
+  //   text-align: center;
+  // }
+
+  .modal-content {
+    border: 0px solid #ebedf2 !important;
+    border-radius: 0rem !important;
+    font-family: "Poppins" !important;
+}
+
+.b-top-radius{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.mat-typography {
+    font-family: "Poppins" !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.logger-details{
+  background: linear-gradient(45deg, #764229 10%, #d6a35c 100%, #9d5d2b00 0%);
+  border-top-left-radius: 50px; 
+  border-bottom-left-radius: 50px;
+  min-width: 185px
+}
+
+
+@media (max-width: 640px){
+    .main-card-head {
+      background: linear-gradient(45deg, #764229 30%, #d6a35c 100%, #9d5d2b00 0%);
+      font-family: 'Poppins' !important;
+      color: #ffffff;
+  }
+
+  .card-heading {
+      background: linear-gradient(90deg, #764229 30%, #d6a35c 100%, #9d5d2b00 0%);
+      color: #ffffff;
+      margin: 0px !important;
+      padding: 5px 1.5rem;
+      font-weight: 400 !important;
+      text-transform: uppercase;
+      font-size: 14px;
+      text-shadow: 1px 1px black !important;
+      font-family: "Poppins" !important;
+  }
+
+
+.mat-paginator-outer-container {
+    display: flex !important;
+}
+
+.logger-details{
+  background: linear-gradient(45deg, #764229 10%, #d6a35c 100%, #9d5d2b00 0%);
+  border-top-left-radius: 50px; 
+  border-bottom-left-radius: 50px;
+  min-width: fit-content
+  }
+
+.navbar
+.navbar-menu-wrapper
+.navbar-nav
+.nav-item.dropdown
+.navbar-dropdown {
+    left: initial !important;
+    right: 60px !important;
+    top: 54px;
+    width: calc(100% - 40px);
+}
+
+// .mat-paginator-container {
+//     display: flex;
+//     align-items: flex-end;
+//     justify-content: flex-end;
+//     padding: 0 8px;
+//     flex-wrap: nowrap !important;
+//     width: 424px !important;
+
+// }
+
+  .mat-paginator-container {
+      display: flex;
+       align-items: flex-end;
+      justify-content: flex-end;
+      padding: 0 8px;
+      flex-wrap: initial !important;
+      width: auto !important;
+      font-family: "Poppins" !important;
+    white-space: nowrap;
+    background: linear-gradient(180deg, #764229, #9e5e2c);
+  }
+
+.inner-bg{
+    background-position: initial !important;
+    background-attachment: initial !important;
+    background-repeat: repeat-y !important;
+    filter: drop-shadow(2px 4px 6px rgb(104, 104, 104));
+}
+
+}
+
+.w-own{
+  width: 260px !important;
+}
+
+.user-img{
+  background-color: #e9ecef;
+  position: absolute;
+  border-radius: 50px;
+  border: 3px solid #fefefe;
+  right: 2rem;
+  top: -30px;
+}
+
+.btn-img-add {
+  height: 20px;
+  width: 26px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-left: auto;
+  font-size: 2rem;
+  background: linear-gradient(360deg, #76432a, #a05e2b);
+  padding: 15px;
+  border: 1px solid #76432a;
+  border-radius: 50px;
+  color: #fff;
+}
+
+@media (max-width: 640px){
+  .w-own{
+      width: 100% !important;
+  }
+}
+
+@media (max-width: 1366px){
+    .mid-screen{
+      height: auto !important;
+      align-items: center !important;
+      display: flex !important;
+      padding: 2rem 0rem !important;
+  }
+}
+
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
+{
+    /*
+      Define here the CSS styles applied only to Safari browsers
+      (any version and any device)
+     */
+
+  .group > .select-text {
+    position: relative;
+    font-family: 'Poppins' !important;
+    background-color: transparent;
+    width: 100%;
+    padding: 4px 10px 4px 6px;
+    font-size: 14px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    color: #4f4b36;
+    top: -1px;
+    -webkit-appearance: none !important;
+    }
+
+    .btn-img-add {
+      height: 26px;
+      width: 26px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      margin-left: auto;
+      font-size: 2rem;
+      background: linear-gradient(360deg, #76432a, #a05e2b);
+      padding: 1px 5px 5px 5px;
+      border: 1px solid #76432a;
+      border-radius: 50px;
+      color: #fff;
+  }
+  
+}
+
+@supports ( -webkit-touch-callout: none) {
+
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .main-card-head {
+        background: linear-gradient( 45deg, #764229 10%, #d6a35c 50%, #9d5d2b00 0%) !important;
+        font-family: "Poppins" !important;
+        color: #ffffff;
+    }
+ }
+
+@media (min-width: 1280px) and (max-width: 1366.98px) {
+    .main-card-head {
+        background: linear-gradient( 45deg, #764229 10%, #d6a35c 40%, #9d5d2b00 0%) !important;
+        font-family: "Poppins" !important;
+        color: #ffffff;
+    }
+ }
+
+.asterisk{
+    color: #c00000 !important;
+    font-size: 14px !important;
+}

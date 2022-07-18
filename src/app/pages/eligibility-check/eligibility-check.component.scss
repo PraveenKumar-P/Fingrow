@@ -1,0 +1,328 @@
+.form-control {
+    border-bottom: 2px solid #ab8046 !important;
+    font-family: "Poppins", sans-serif;
+    border-radius: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.form-check-label {
+    min-height: 18px;
+    display: block;
+    margin-left: 1.75rem;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -0.25rem;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+  .btn-add:hover {
+    background: linear-gradient(360deg, #a05e2b, #76432a);
+    color: #fff;
+}
+
+@media (max-width: 640px){
+
+.v-qstn{
+        font-size: 1.2rem;
+    text-align: center;
+    line-height: 2rem;
+}
+
+
+.mid-center{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.qs-font{
+    font-size: 12px !important;
+    line-height: 2em;
+    font-weight: 300;
+}
+
+ .p-sm-0{
+  padding: 0px !important;
+}
+
+.on-board{
+    height: auto !important;
+    display: flex;
+    align-items: center;
+}
+}
+
+/* The container */
+.con_check {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.con_check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.con_check:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.con_check input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.con_check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.con_check .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.dial{
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    color: #d6a35c;
+    float: left;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background: linear-gradient(360deg, #76432a, #a05e2b);
+}
+
+a:visited  {
+    color: red !important;
+    background: #f2f2f2 !important;
+}
+
+.qs-font{
+ font-size: 15px;
+    line-height: 2em;
+    font-weight: 500;
+    color: #292525;
+}
+
+.on-board{
+    height: 50vh;
+    display: flex;
+    align-items: center;
+}
+
+
+.box-2 {
+  border: 0px solid;
+  border-image: radial-gradient(#ffffff, #78442a) ;
+  border-image-slice: 1;
+  height: calc(100vh - 250px);
+  overflow-y: scroll;
+}
+
+.rectangle {
+    height: 50px;
+    width: 100px;
+    background: linear-gradient(180deg, #301f17 0%, #5f311b 50%, #5f311b 20%, #301f17 100%);
+    text-align: center;
+    align-items: center;
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.outline-0{
+    outline: 0px solid #adadad !important;
+}
+
+/* The container */
+.contain-check {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.contain-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.contain-check:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain-check input:checked ~ .checkmark {
+  background-color: #ab8046;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.contain-check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.contain-check .checkmark:after {
+     left: 10px;
+    top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.multiselect-dropdown .dropdown-btn{
+  display: inline-block;
+  border-bottom: 2px solid #b18a54 !important;
+  width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.52857143;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border-radius: 0px !important;
+  border-top: 0px  !important;
+  border-left: 0px  !important;
+  border-right: 0px !important;
+}
+
+label {
+  color: #764229;
+  font-size: 12px;
+  font-weight: 500;
+  position: initial !important;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 300ms ease all;
+}
+
+td:last-child {
+  text-align: left !important;
+}
+
+.c-flex{
+    display: flex !important;
+}
+
+@media (max-width: 640px) {
+  .c-flex{
+      display: initial !important;
+  }
+
+  .box-2 {
+    border: 0px solid;
+    border-image: radial-gradient(#ffffff, #78442a) ;
+    border-image-slice: 1;
+    height: fit-content;
+    overflow-y: visible;
+  }
+}

@@ -1,0 +1,748 @@
+<ngx-spinner></ngx-spinner>
+<div class="col-12 py-1 px-3 main-card-head">
+	<div class="row m-0 top-half-icon">
+		<button class="btn btn-add m-0" title="EMI Calculator" type="button" tabindex="0" (click)="openEMIModal()">
+			<i class="mdi mdi-calculator menu-icon"></i>
+		</button>
+	</div>
+	<div>Co-Applicant Form</div>
+</div>
+<div class="card">
+	<div class="card-body">
+		<div class="row">
+			<form #coApplicantForm="ngForm">
+				<div class="col-12 mb-3">
+					<div class="row shadow mx-0">
+						<div class="col-12 py-2 px-3 sub-card-head">
+							Co-Applicant’s Personal Details
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<div class="group">
+									<input type="text" name="firstName" class="validation"
+										[(ngModel)]="coApplicantModel['coapplicantfirstname']" #firstName="ngModel"
+										placeholder="First Name" [readonly]='isReadOnly'
+										(keypress)="isCharacter($event)" oncopy="return false" onpaste="return false"
+										required>
+									<span class="highlight"> </span>
+									<span class="bar"> </span>
+									<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>First
+										Name<span class="asterisk">*</span></label>
+									<div *ngIf="firstName.invalid && firstName.touched" class="text-danger">
+										First Name is required</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" name="middleName" class="validation"
+									[(ngModel)]="coApplicantModel['coapplicantmiddlename']" #middleName="ngModel"
+									placeholder="Middle Name" [readonly]='isReadOnly' (keypress)="isCharacter($event)"
+									oncopy="return false" onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Middle
+									Name</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" name="lastName" class="validation"
+									[(ngModel)]="coApplicantModel['coapplicantlastname']" #lastName="ngModel"
+									placeholder="Last Name" [readonly]='isReadOnly' (keypress)="isCharacter($event)"
+									oncopy="return false" onpaste="return false" required>
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Last
+									Name<span class="asterisk">*</span></label>
+								<div *ngIf="lastName.invalid && lastName.touched" class="text-danger">
+									Last Name is required</div>
+							</div>
+						</div>
+						<div class="col-md-4" *ngIf="!isReadOnly">
+							<mat-form-field>
+								<div class="group">
+									<mat-datepicker-toggle matSuffix [for]="picker"
+										style="position: absolute;right: 0;top: -11px;"></mat-datepicker-toggle>
+									<input class="validation" matInput placeholder="dd-mm-yyyy" name="dateofbirth"
+										#dateofbirth="ngModel" [(ngModel)]="coApplicantModel['dateofbirth']"
+										(dateChange)="setDate($event.value)" [matDatepicker]="picker"
+										(focus)="picker.open()" [ngModelOptions]="{standalone: true}" [max]="maxDate"
+										required>
+									<label><i class="h5 mdi mdi-calendar menu-icon mr-2"></i>Date of birth<span
+											class="asterisk">*</span></label>
+									<span *ngIf="dateofbirth.invalid && dateofbirth.touched" class="text-danger">
+										Date Of Birth is required
+									</span>
+									<mat-datepicker #picker></mat-datepicker>
+								</div>
+							</mat-form-field>
+						</div>
+						<div class="col-md-4" *ngIf="isReadOnly">
+							<div class="group">
+								<input class="validation" placeholder="dd-mm-yyyy" name="dateofbirth"
+									#dateofbirth="ngModel" [(ngModel)]="readOnlyDate" required readonly>
+								<label><i class="h5 mdi mdi-calendar menu-icon mr-2"></i>Date of birth<span
+										class="asterisk">*</span></label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="gender"
+									[(ngModel)]="coApplicantModel['coapplicantgender']" #gender="ngModel">
+									<option *ngFor="let gender of genderMaster" [value]="gender.id"
+										[disabled]="isReadOnly">
+										{{gender.value}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i
+										class="h5 mdi mdi-gender-male-female menu-icon mr-2"></i>Gender</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text" name="marital"
+									[(ngModel)]="coApplicantModel['maritalstatus']" #marital="ngModel">
+									<option *ngFor="let status of maritalStatus" [value]="status.id"
+										[disabled]="isReadOnly">
+										{{status.value}}
+									</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i
+										class="h5 mdi mdi-human-male-female menu-icon mr-2"></i>Marital
+									Status</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" name="fatherName" class="validation" placeholder="Father Name"
+									[(ngModel)]="coApplicantModel['coapplicantfathername']" #fatherName="ngModel"
+									[readonly]='isReadOnly' (keypress)="isCharacter($event)" oncopy="return false"
+									onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Father's Full Name</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" class="validation" name="motherName"
+									[(ngModel)]="coApplicantModel['coapplicantmothername']" #motherName="ngModel"
+									placeholder="Mothers MaidenName" [readonly]='isReadOnly'
+									(keypress)="isCharacter($event)" oncopy="return false" onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Mother’s Full Name</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group pb-2">
+								<select class="select-text validation" name="applicantRelationShip"
+									[(ngModel)]="coApplicantModel['coapplicantrelationshipid']"
+									#applicantRelationShip="ngModel" placeholder="Relationship Type" required>
+									<option *ngFor="let relationship of relationShipType"
+										[value]="relationship.relationshiptypeid" [disabled]="isReadOnly">
+										{{relationship.relationshipname}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i class="h5 mdi mdi-kodi menu-icon mr-2"></i>
+									Relationship with the Applicant<span class="asterisk">*</span></label>
+								<div *ngIf="applicantRelationShip.invalid && applicantRelationShip.touched"
+									class="text-danger">
+									Relationship with the Applicant is required</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 mb-3">
+					<div class="row shadow mx-0">
+						<div class="col-12 py-2 px-3 sub-card-head">
+							Co-Applicant’s Address Details
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="residenceType"
+									[(ngModel)]="coApplicantModel['coapplicantresidencetypeid']"
+									#residenceType="ngModel" placeholder="Residence Type">
+									<option *ngFor="let residence of residenceTypes" [value]="residence.residencetypeid"
+										[disabled]="isReadOnly">
+										{{residence.residencetype}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i
+										class="h5 mdi mdi-home-modern menu-icon mr-2"></i>Residence
+									Type</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="areaType"
+									[(ngModel)]="coApplicantModel['coapplicantareatypeid']" #areaType="ngModel"
+									placeholder="Area Type">
+									<option *ngFor="let area of areaTypes" [value]="area.areaid"
+										[disabled]="isReadOnly">
+										{{area.areatypename}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i class="h5 mdi mdi-kodi menu-icon mr-2"></i>Select
+									Area Type</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="countryName" #countryName="ngModel"
+									[(ngModel)]="coApplicantModel['coapplicantcountryid']" placeholder="Country"
+									(change)="changeCountry()" required>
+									<option *ngFor="let country of countryList" [value]="country.countryid"
+										[disabled]="isReadOnly">
+										{{country.countryname}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i class="h5 mdi mdi-map menu-icon mr-2"></i>Country<span
+										class="asterisk">*</span></label>
+								<div *ngIf="countryName.invalid && countryName.touched" class="text-danger">
+									Country is required</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="stateName" #stateName="ngModel"
+									[(ngModel)]="coApplicantModel['coapplicantstateid']" placeholder="State"
+									(change)="changeState()" [disabled]="!(stateList.length > 0)" required>
+									<option *ngFor="let state of stateList" [value]="state.stateid"
+										[disabled]="isReadOnly">
+										{{state.statename}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i
+										class="h5 mdi mdi-map-marker-circle menu-icon mr-2"></i>State<span
+										class="asterisk">*</span></label>
+								<div *ngIf="stateName.invalid && stateName.touched" class="text-danger">
+									State is required</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="city"
+									[(ngModel)]="coApplicantModel['coapplicantcityid']" #city="ngModel"
+									placeholder="City" [disabled]="!(cityList.length > 0)">
+									<option value="">--Select City--</option>
+									<option *ngFor="let city of cityList" [value]="city.cityid" [disabled]="isReadOnly">
+										{{city.cityname}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i class="h5 mdi mdi-city menu-icon mr-2"></i>City</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" name="doorNo" class="validation"
+									[(ngModel)]="coApplicantModel['coapplicantdoornostreet']" #doorNo="ngModel"
+									placeholder="Door Number" [readonly]='isReadOnly'>
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-home-map-marker menu-icon mr-2"></i>Door
+									No. & Street</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" name="area" class="validation"
+									[(ngModel)]="coApplicantModel['coapplicantarea']" #area="ngModel"
+									placeholder="Middle Name" [readonly]='isReadOnly'>
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-map-marker-radius menu-icon mr-2"></i>Area/Village</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" name="pincode" class="validation" #pincode="ngModel"
+									[(ngModel)]="coApplicantModel['coapplicantpincode']" placeholder="Pincode"
+									[readonly]='isReadOnly' inputmode="numeric" (keypress)="isNumber($event)"
+									minlength="6" maxlength="6" oncopy="return false" onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-numeric menu-icon mr-2"></i>Pincode</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group pb-3">
+								<input type="text" name="landmark" class="validation" #landmark="ngModel"
+									[(ngModel)]="coApplicantModel['coapplicantlandmark']" placeholder="Landmark"
+									[readonly]='isReadOnly'>
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-credit-card menu-icon mr-2"></i>Landmark</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 mb-3">
+					<div class="row shadow mx-0">
+						<div class="col-12 py-2 px-3 sub-card-head">
+							Co-Applicant’s Educational, Professional and Income Details
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="education"
+									[(ngModel)]="coApplicantModel['coapplicanteducationtypeid']" #education="ngModel"
+									placeholder="Education">
+									<option *ngFor="let education of educationType" [value]="education.educationtypeid"
+										[disabled]="isReadOnly">
+										{{education.educationtype}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i
+										class="h5 mdi mdi-school menu-icon mr-2"></i>Education</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="employment"
+									[(ngModel)]="coApplicantModel['coapplicantemployeementtypeid']"
+									#employment="ngModel" placeholder="Employment">
+									<option *ngFor="let employee of employeementTypes"
+										[value]="employee.employeementtypeid" [disabled]="isReadOnly">
+										{{employee.employeementtype}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i
+										class="h5 mdi mdi-kodi menu-icon mr-2"></i>Employment</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="yearofExperience"
+									[(ngModel)]="coApplicantModel['coapplicantyearsofexperienceid']"
+									#yearofExperience="ngModel" placeholder="Year ofExperience">
+									<option *ngFor="let experience of yearOfExperience"
+										[value]="experience.yearsexperienceid" [disabled]="isReadOnly">
+										{{experience.yearsexperience}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i class="h5 mdi mdi-kodi menu-icon mr-2"></i>Years
+									of Experience</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group pb-4">
+								<input type="text" class="validation" name="monthlyIncome" placeholder="Monthly Income"
+									[(ngModel)]="coApplicantModel['coapplicantmonthlyincome']" #monthlyIncome="ngModel"
+									[readonly]='isReadOnly' inputmode="numeric" minlength="3" maxlength="8"
+									(keypress)="isNumber($event)" pattern="^(0*[1-9][0-9]*)$" required
+									oncopy="return false" onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-numeric menu-icon mr-2"></i>Monthly
+									Income<span class="asterisk">*</span></label>
+								<span
+									*ngIf="monthlyIncome.invalid && monthlyIncome.touched && !(monthlyIncome.errors?.minlength || monthlyIncome.errors?.maxlength || monthlyIncome.errors?.pattern)"
+									class="text-danger">
+									Monthly Income is required</span>
+								<div *ngIf="monthlyIncome.errors?.pattern  && !(monthlyIncome.errors?.minlength || monthlyIncome.errors?.maxlength)"
+									class="text-danger">Enter Valid Monthly Income</div>
+								<div *ngIf="monthlyIncome.errors?.minlength || monthlyIncome.errors?.maxlength && !monthlyIncome.errors?.pattern"
+									class="text-danger">Monthly Income
+									Minimum 3 numbers and Maximum 8 numbers required</div>
+							</div>
+						</div>
+						<div class="col-md-4 mb-3">
+							<div class="group">
+								<input type="text" class="validation" name="mobileNumber" placeholder="Mobile Number"
+									[(ngModel)]="coApplicantModel['mobilenumber']" #mobileNumber="ngModel"
+									pattern="^([6-9]{1})([0-9]{9})$" maxlength="10" inputmode="numeric"
+									(keypress)="isNumber($event)" [readonly]='isReadOnly' required>
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-cellphone-android menu-icon mr-2"></i>Mobile
+									Number<span class="asterisk">*</span></label>
+								<div *ngIf="mobileNumber.errors?.pattern" class="text-danger">Enter Valid Mobile
+									Number
+								</div>
+								<div *ngIf="mobileNumber.invalid && mobileNumber.touched && !mobileNumber.errors?.pattern"
+									class="text-danger">
+									Mobile Number is required</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" class="validation" name="email" placeholder="Email"
+									[(ngModel)]="coApplicantModel['emailid']" #email="ngModel"
+									pattern="(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+									[readonly]='isReadOnly'>
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-email menu-icon mr-2"></i>Email
+									ID</label>
+								<div *ngIf="email.errors?.pattern" class="text-danger">Enter Valid Email
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 mb-3">
+					<div class="row shadow mx-0">
+						<div class="col-12 py-2 px-3 sub-card-head">
+							Co-Applicant’s Bank A/c Details
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<select class="select-text validation" name="bankName"
+									[(ngModel)]="coApplicantModel['coapplicantbankid']" #bankName="ngModel">
+									<option *ngFor="let bank of bankMaster" [value]="bank.bankid"
+										[disabled]="isReadOnly">
+										{{bank.bankname}}</option>
+								</select>
+								<span class="select-highlight"></span>
+								<span class="select-bar"></span>
+								<label class="select-label"><i class="h5 mdi mdi-bank menu-icon mr-2"></i>Select
+									Bank</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group pb-3">
+								<input type="text" class="validation" name="accountNumber" placeholder="Account Number"
+									[(ngModel)]="coApplicantModel['coapplicantbankaccountnumber']" minlength=7
+									maxlength=18 #accountNumber="ngModel" [readonly]='isReadOnly' inputmode="numeric"
+									(keypress)="isNumber($event)" pattern="^(0*[1-9][0-9]*)$" oncopy="return false"
+									onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-numeric menu-icon mr-2"></i>Bank Account Number</label>
+								<div *ngIf="accountNumber.errors?.pattern && !accountNumber.errors?.minlength && !accountNumber.errors?.maxlength"
+									class="text-danger">Enter Valid
+									Accountnumber</div>
+								<div *ngIf="accountNumber.errors?.minlength || accountNumber.errors?.maxlength && !accountNumber.errors?.pattern"
+									class="text-danger">Accountnumber
+									Minimum 7 numbers and Maximum 18 numbers required</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" class="validation" name="ifscCode" placeholder="IFSC Code"
+									[(ngModel)]="coApplicantModel['coapplicantifsccode']" #ifscCode="ngModel"
+									[readonly]='isReadOnly' pattern="[A-Z]{4}[0-9]{7}" specialIsAlphaNumeric uppercase
+									minlength="11" maxlength="11" oncopy="return false" onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-cash menu-icon mr-2"></i>IFSC Code</label>
+								<div *ngIf="ifscCode.errors?.pattern" class="text-danger">Enter Valid IFSC Code
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group">
+								<input type="text" class="validation" name="branchName" placeholder="Branch Name"
+									[(ngModel)]="coApplicantModel['bankbranchname']" #branchName="ngModel"
+									[readonly]='isReadOnly' (keypress)="isCharacter($event)" oncopy="return false"
+									onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-cash-multiple menu-icon mr-2"></i>Branch Name</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="group pb-2">
+								<input type="text" class="validation" name="nameOfBank" placeholder="Name of bank"
+									[(ngModel)]="coApplicantModel['coapplicantbankaccountname']" #nameOfBank="ngModel"
+									[readonly]='isReadOnly' (keypress)="isCharacter($event)" oncopy="return false"
+									onpaste="return false">
+								<span class="highlight"> </span>
+								<span class="bar"> </span>
+								<label><i class="h5 mdi mdi-credit-card menu-icon mr-2"></i>Name of the Account Holder
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 mb-3">
+					<div class="row pb-3 m-0 shadow">
+						<div class="col-12 py-2 px-3 sub-card-head">Upload Co-Applicant’s Documents
+						</div>
+						<div class="col-md-3 my-3 p-1">
+							<div class="border p-3">
+								<div *ngIf="coApplicantDocModel['panImageSrc'] && !panImageRemove">
+									<a href="javascript:" class="text-muted remove-img" *ngIf="!isReadOnly"
+										(click)="panRemove(coApplicantDocModel['panDocId'])"><i
+											class="mdi mdi-delete-forever"></i></a>
+								</div>
+								<div class="group pb-3">
+									<select class="select-text validation" name="doc"
+										[(ngModel)]="coApplicantModel['ispan']" #doc="ngModel"
+										placeholder="Document type"
+										(change)="documentTypeChange(coApplicantModel['ispan'])">
+										<option *ngFor="let document of documentTypes" [value]="document.id"
+											[disabled]="isReadOnly || coApplicantDocModel['panImageSrc']">
+											{{document.value}}
+										</option>
+									</select>
+									<span class="select-highlight"></span>
+									<span class="select-bar"></span>
+									<label class="select-label"><i class="h5 mdi mdi-kodi menu-icon mr-2"></i>
+										Document Type
+									</label>
+								</div>
+								<div class="group pb-3" *ngIf="coApplicantModel['ispan'] == 'false'">
+									<input type="text" class="validation" name="pannumber" placeholder="Pan Number"
+										[(ngModel)]="coApplicantModel['coapplicantpannumber']" #pannumber="ngModel"
+										[readonly]='isReadOnly' specialIsAlphaNumeric uppercase minlength="10"
+										maxlength="10" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" oncopy="return false"
+										onpaste="return false">
+									<span class="highlight"> </span>
+									<span class="bar"> </span>
+									<label><i class="h5 mdi mdi-credit-card menu-icon mr-2"></i>PAN Number</label>
+									<div *ngIf="pannumber.errors?.pattern" class="text-danger">Enter Valid
+										PanNumber(ex:ABCDE1234F)</div>
+								</div>
+								<div class="group pb-3" *ngIf="coApplicantModel['ispan'] == 'true'">
+									<input type="text" class="validation" name="aadharno" placeholder="Aadhar Number"
+										[(ngModel)]="coApplicantModel['coapplicantaadharnumber']" #aadharno="ngModel"
+										inputmode="numeric" (keypress)="isNumber($event)" pattern="^(0*[1-9][0-9]*)$"
+										maxlength="12" [readonly]='isReadOnly' oncopy="return false"
+										onpaste="return false">
+									<span class="highlight"> </span>
+									<span class="bar"> </span>
+									<label><i class="h5 mdi mdi-cash menu-icon mr-2"></i>Aadhar Number</label>
+									<div *ngIf="aadharno.errors?.pattern" class="text-danger">Enter Valid Aadhar Number
+									</div>
+									<div *ngIf="aadharno.errors?.maxlength" class="text-danger">Aadhar Number Maximum 12
+										numbers required</div>
+								</div>
+								<div class="group">
+									<div class="custom-file" *ngIf="panImageRemove">
+										<input type="file" class="custom-file-input" name="panidProofVar"
+											[(ngModel)]="coApplicantDocModel['panidProofVar']" #panidProofVar="ngModel"
+											accept="image/*" (change)="uploadPAN($event)"
+											[disabled]="!coApplicantModel['coapplicantpannumber'] && !coApplicantModel['coapplicantaadharnumber'] || !coApplicantModel['ispan']" />
+										<label class="custom-file-label" for="validatedCustomFile">Select
+											Images..</label>
+									</div>
+									<div class="bg-light text-center"
+										*ngIf="coApplicantDocModel['panImageSrc'] && !panImageRemove">
+										<div class="profile-img-container">
+											<img [src]="coApplicantDocModel['panImageSrc']" class="" height="110px"
+												width="150px"
+												(click)="openImageModal(coApplicantDocModel['panImageSrc'])" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 my-3 p-1">
+							<div class="border p-3">
+								<div *ngIf="coApplicantDocModel['idProofImageSrc'] && !idProofImageRemove">
+									<a href="javascript:" class="text-muted remove-img" *ngIf="!isReadOnly"
+										(click)="idProofRemove(coApplicantDocModel['idProof'], coApplicantDocModel['idDocId'])"><i
+											class="mdi mdi-delete-forever"></i></a>
+								</div>
+								<div class="group pb-3">
+									<select class="select-text validation" name="idProof"
+										[(ngModel)]="coApplicantDocModel['idProof']" #idProof="ngModel"
+										placeholder="ID Proof">
+										<option *ngFor="let document of idDocumentsTypes"
+											[value]="document.documenttypeid"
+											[disabled]="isReadOnly || coApplicantDocModel['idProofImageSrc']">
+											{{document.documentname}}
+										</option>
+									</select>
+									<span class="select-highlight"></span>
+									<span class="select-bar"></span>
+									<label class="select-label"><i class="h5 mdi mdi-kodi menu-icon mr-2"></i>ID
+										Proof</label>
+								</div>
+								<div class="group pb-3">
+									<input type="text" class="validation" name="documentNumber"
+										#documentNumber="ngModel" placeholder="Branch Name"
+										[(ngModel)]="coApplicantDocModel['idProofDocumentNumber']"
+										[readonly]="isReadOnly || coApplicantDocModel['idProofImageSrc']"
+										oncopy="return false" onpaste="return false">
+									<span class="highlight"> </span>
+									<span class="bar"> </span>
+									<label><i class="h5 mdi mdi-cash-multiple menu-icon mr-2"></i>Document
+										Number</label>
+								</div>
+								<div class="group">
+									<!-- Upload Id proof -->
+									<div class="custom-file" *ngIf="idProofImageRemove">
+										<input type="file" class="custom-file-input" name="idProofVar"
+											[disabled]="coApplicantDocModel['idProof'] == null || coApplicantDocModel['idProofDocumentNumber'] == null"
+											[(ngModel)]="coApplicantDocModel['idProofVar']" #idProofVar="ngModel"
+											accept="image/*"
+											(change)="uploadIdProof($event, coApplicantDocModel['idProof'], coApplicantDocModel['idProofDocumentNumber'])" />
+										<label class="custom-file-label" for="validatedCustomFile">Select
+											Images..</label>
+									</div>
+									<div class="bg-light text-center"
+										*ngIf="coApplicantDocModel['idProofImageSrc'] && !idProofImageRemove">
+										<div class="profile-img-container">
+											<img [src]="coApplicantDocModel['idProofImageSrc']" height="110px"
+												width="150px"
+												(click)="openImageModal(coApplicantDocModel['idProofImageSrc'])" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 my-3 p-1">
+							<div class="border p-3">
+								<div *ngIf="coApplicantDocModel['addProofImageSrc'] && !addProofImageRemove">
+									<a href="javascript:" class="text-muted remove-img" *ngIf="!isReadOnly"
+										(click)="addProofRemove(coApplicantDocModel['addProof'], coApplicantDocModel['addDocId'])"><i
+											class="mdi mdi-delete-forever"></i></a>
+								</div>
+								<div class="group pb-3">
+									<select class="select-text validation" name="addProof"
+										[(ngModel)]="coApplicantDocModel['addProof']" #addProof="ngModel"
+										placeholder="Address Proof">
+										<option *ngFor="let document of apDocumentsTypes"
+											[value]="document.documenttypeid"
+											[disabled]="isReadOnly || coApplicantDocModel['addProofImageSrc']">
+											{{document.documentname}}
+										</option>
+									</select>
+									<span class="select-highlight"></span>
+									<span class="select-bar"></span>
+									<label class="select-label"><i class="h5 mdi mdi-kodi menu-icon mr-2"></i>Address
+										Proof</label>
+								</div>
+								<div class="group pb-3">
+									<input type="text" class="validation" name="addressDocumentNumber"
+										placeholder="ID Address Document Number"
+										[(ngModel)]="coApplicantDocModel['addProofDocumentNumber']"
+										#addressDocumentNumber="ngModel"
+										[readonly]="isReadOnly || coApplicantDocModel['addProofImageSrc']"
+										oncopy="return false" onpaste="return false">
+									<span class="highlight"> </span>
+									<span class="bar"> </span>
+									<label><i class="h5 mdi mdi-cash-multiple menu-icon mr-2"></i>Document
+										Number</label>
+								</div>
+								<!-- Upload Address proof -->
+								<div class="group">
+									<div class="custom-file" *ngIf="addProofImageRemove">
+										<input type="file" class="custom-file-input" name="addressdocument"
+											[disabled]="coApplicantDocModel['addProof'] == null || coApplicantDocModel['addProofDocumentNumber'] == null"
+											[(ngModel)]="coApplicantDocModel['addProofVar']" #addressdocument="ngModel"
+											accept="image/*"
+											(change)="uploadAddressProof($event, coApplicantDocModel['addProof'], coApplicantDocModel['addProofDocumentNumber'])" />
+										<label class="custom-file-label" for="validatedCustomFile">Select
+											Images..</label>
+									</div>
+									<div class="bg-light text-center"
+										*ngIf="coApplicantDocModel['addProofImageSrc'] && !addProofImageRemove">
+										<div class="profile-img-container">
+											<img [src]="coApplicantDocModel['addProofImageSrc']" height="110px"
+												width="150px"
+												(click)="openImageModal(coApplicantDocModel['addProofImageSrc'])" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 my-3 p-1">
+							<div class="border p-3">
+								<div *ngIf="coApplicantDocModel['profileImageSrc'] && !profileImageRemove">
+									<a href="javascript:" class="text-muted remove-img" *ngIf="!isReadOnly"
+										(click)="profileRemove()"><i class="mdi mdi-delete-forever"></i></a>
+								</div>
+								<div class="w-100 py-2 px-2"
+									style="font-weight: 500;font-family: 'Poppins' !important;color: #764229;">Profile
+									Picture</div>
+								<!-- Upload Photo -->
+								<div class="group">
+									<div class="custom-file" *ngIf="profileImageRemove">
+										<input type="file" class="custom-file-input" name="profile"
+											[(ngModel)]="coApplicantDocModel['profilePic']" #profile="ngModel"
+											accept="image/*" (change)="uploadProfile($event)" required />
+										<label class="custom-file-label" for="validatedCustomFile">Select
+											Images..<span class="asterisk">*</span></label>
+										<div *ngIf="profile.invalid && profile.touched" class="text-danger">
+											Image is required</div>
+									</div>
+									<div class="bg-light text-center"
+										*ngIf="coApplicantDocModel['profileImageSrc'] && !profileImageRemove">
+										<div class="profile-img-container">
+											<img [src]="coApplicantDocModel['profileImageSrc']" height="110px"
+												width="150px"
+												(click)="openImageModal(coApplicantDocModel['profileImageSrc'])" />
+										</div>
+									</div>
+								</div>
+								<!-- take Selfi -->
+								<!-- <div class="group">
+									<div class="group">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" name="takeSelfie"
+												[(ngModel)]="coApplicantModel['takeSelfie']" #takeSelfie="ngModel"
+												accept="image/*" (change)="uploadProfile($event)" />
+											<label class="custom-file-label" for="validatedCustomFile">Select
+												Images..</label>
+										</div>
+										<div *ngIf="takeSelfie.length > 0">
+											<div class="row mb-1">
+												<div class="col-sm-2 profile-img-container">
+													<img [src]="takeSelfie" class="" height="110px" width="150px" />
+													<a href="javascript:" class="text-muted" (click)="removeImage(i)"><i
+															class="feather icon-trash-2 trash"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="row mx-0 mt-3">
+			<div class="search-hero ml-auto mb-3 p-0" *ngIf="!isReadOnly">
+				<button type="button" class="btn btn-cancel btn-sm" (click)="back()"> Back</button>
+				<button type="button" class="btn btn-save btn-sm" (click)="createCoApplicant()">
+					Submit</button>
+			</div>
+			<div class="search-hero ml-auto mb-3 p-0" *ngIf="isReadOnly">
+				<button type="button" class="btn btn-cancel btn-sm" (click)="back()"> Back</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- EMI Model Contant -->
+<ng-template #emiModal>
+	<div style="background-color: whitesmoke;">
+		<div class="modal-body">
+			<app-emi-calculator></app-emi-calculator>
+		</div>
+		<div class="modal-footer mpr-btn-padding">
+			<button type="button" class="btn btn-save btn-sm" (click)="closeModel()">OK</button>
+		</div>
+	</div>
+</ng-template>
+
+<!-- Image Model -->
+<ng-template #imageModal>
+	<div class="modal-header">
+		<button type="button" class="close" (click)="closeModel()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div class="card lesson-border">
+			<img class="card-img-top" src="{{preview}}" alt="Card image cap">
+		</div>
+	</div>
+</ng-template>

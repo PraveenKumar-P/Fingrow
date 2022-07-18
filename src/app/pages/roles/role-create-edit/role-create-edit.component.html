@@ -1,0 +1,27 @@
+<ngx-spinner></ngx-spinner>
+<div class="row h-100 mid-y">
+    <div class="col-md-4 mx-auto grid-margin stretch-card">
+        <div class="card">
+            <form (ngSubmit)="onSubmit()" #roleForm="ngForm">
+                <div class="row m-0">
+                    <div class="col-md-12 pt-3">
+                        <div class="group">
+                            <input type="text" name="roleName" class="validation" placeholder="Role Name"
+                                [(ngModel)]="roleModel['rolename']" #roleName="ngModel" required>
+                            <span class="highlight"> </span>
+                            <span class="bar"> </span>
+                            <label><i class="h5 mdi mdi-rename-box menu-icon mr-2"></i>Role Name<span class="asterisk">*</span></label>
+                            <span *ngIf="roleName.invalid && roleName.touched" class="text-danger">
+                                Role name is required</span>
+                        </div>
+                        <div class="py-3 text-right">
+                            <button type="button" class="ml-auto mr-1 btn btn-cancel btn-sm"
+                                [routerLink]="['/role-list']">Back</button>
+                            <button type="submit" class="ml-auto mr-1 btn btn-save btn-sm">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

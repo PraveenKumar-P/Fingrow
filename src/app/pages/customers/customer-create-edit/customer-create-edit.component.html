@@ -1,0 +1,201 @@
+<ngx-spinner></ngx-spinner>
+<div class="card-heading">
+	<span>Customer Create</span>
+</div>
+<div class="card">
+	<div class="card-body">
+		<form #customerForm="ngForm">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="group">
+						<input type="text" name="firstName" class="validation" [(ngModel)]="customerModel['firstName']"
+							#firstName="ngModel" (keypress)="isCharacter($event)" oncopy="return false"
+							onpaste="return false" required placeholder="FirstName">
+						<span class="highlight"> </span>
+						<span class="bar"> </span>
+						<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>First Name<span
+								class="asterisk">*</span></label>
+						<span *ngIf="firstName.invalid && firstName.touched" class="text-danger">
+							First name is required</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="group">
+						<input type="text" name="middleName" class="validation"
+							[(ngModel)]="customerModel['middlename']" (keypress)="isCharacter($event)"
+							oncopy="return false" onpaste="return false" #middleName="ngModel" placeholder="MiddleName">
+						<span class="highlight"> </span>
+						<span class="bar"> </span>
+						<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Middle Name</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="group">
+						<input type="text" name="lastName" class="validation" [(ngModel)]="customerModel['lastName']"
+							#lastName="ngModel" (keypress)="isCharacter($event)" oncopy="return false"
+							onpaste="return false" required placeholder="Last name">
+						<span class="highlight"> </span>
+						<span class="bar"> </span>
+						<label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Last Name<span
+								class="asterisk">*</span></label>
+						<span *ngIf="lastName.invalid && lastName.touched" class="text-danger">
+							Last name is required</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<mat-form-field>
+						<div class="group">
+							<mat-datepicker-toggle matSuffix [for]="picker"
+								style="position: absolute;right: 0;top: -11px;"></mat-datepicker-toggle>
+							<input class="validation" matInput placeholder="dd-mm-yyyy" name="date" #date="ngModel"
+								[(ngModel)]="customerModel['dateOfBirth']" (dateChange)="setDate($event.value)"
+								[matDatepicker]="picker" (focus)="picker.open()" [max]="maxDate" oncopy="return false"
+								onpaste="return false" required>
+							<label><i class="h5 mdi mdi-calendar menu-icon mr-2"></i>Date of birth<span
+									class="asterisk">*</span></label>
+							<span *ngIf="date.invalid && date.touched" class="text-danger">
+								Date Of Birth is required
+							</span>
+							<mat-datepicker #picker></mat-datepicker>
+						</div>
+					</mat-form-field>
+				</div>
+				<div class="col-md-6">
+					<div class="group">
+						<input type="text" class="validation" [(ngModel)]="customerModel['mobileNumber']" name="mobile"
+							#mobile="ngModel" placeholder="9999999999" pattern="^([6-9]{1})([0-9]{9})$" maxlength="10"
+							inputmode="numeric" (keypress)="isNumber($event)" required>
+						<span class="highlight"> </span>
+						<span class="bar"> </span>
+						<label><i class="h5 mdi mdi-cellphone-android menu-icon mr-2"></i>Mobile Number<span
+								class="asterisk">*</span></label>
+						<div *ngIf="mobile.errors?.pattern" class="text-danger">Enter Valid Mobile
+							Number
+						</div>
+						<div *ngIf="mobile.invalid && mobile.touched && !mobile.errors?.pattern" class="text-danger">
+							Mobile Number is required</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="group">
+						<input type="text" name="email" class="validation" [(ngModel)]="customerModel['email']"
+							#email="ngModel" pattern="(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)" required
+							placeholder="email">
+						<span class="highlight"> </span>
+						<span class="bar"> </span>
+						<label><i class="h5 mdi mdi-email menu-icon mr-2"></i>Email<span
+								class="asterisk">*</span></label>
+						<div *ngIf="email.errors?.pattern" class="text-danger">Enter Valid Email</div>
+						<span *ngIf="email.invalid && email.touched && !email.errors?.pattern" class="text-danger">
+							Email is required</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="group">
+						<select class="select-text validation" name="employment"
+							[(ngModel)]="customerModel['useremployeementtypeid']" #employment="ngModel" required>
+							<option *ngFor="let employee of employeementMaster" [value]="employee.employeementtypeid">
+								{{employee.employeementtype}}</option>
+						</select>
+						<span class="select-highlight"></span>
+						<span class="select-bar"></span>
+						<label class="select-label"><i class="h5 mdi mdi-kodi menu-icon mr-2"></i>Employment
+							Type<span class="asterisk">*</span></label>
+						<span *ngIf="employment.invalid && employment.touched" class="text-danger">
+							Select Employment Type</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="group">
+						<input type="text" class="validation" name="netMonthlyIncome"
+							[(ngModel)]="customerModel['netmonthlyincome']" #netMonthlyIncome="ngModel"
+							placeholder="NetMonthlyIncome" minlength="3" maxlength="8" inputmode="numeric"
+							(keypress)="isNumber($event)" oncopy="return false" onpaste="return false" required>
+						<span class="highlight"> </span>
+						<span class="bar"> </span>
+						<label><i class="h5 mdi mdi-cash menu-icon mr-2"></i>Net Monthly Income<span
+								class="asterisk">*</span><span style="color:#8b2d21"><b><img
+										src="assets/images/rupee-indian.svg" class="mb-1" width="10"
+										height="10"></b></span></label>
+						<span
+							*ngIf="netMonthlyIncome.invalid && netMonthlyIncome.touched && !netMonthlyIncome.errors?.minlength && !netMonthlyIncome.errors?.maxlength"
+							class="text-danger">
+							Net Monthly Income is required</span>
+						<div *ngIf="netMonthlyIncome.errors?.minlength || netMonthlyIncome.errors?.maxlength"
+							class="text-danger">Net Monthly Income
+							Minimum 3 numbers and Maximum 8 numbers required</div>
+					</div>
+				</div>
+				<div class="col-md-12 text-center my-4 px-4" style="font-size: 12px;font-family: 'Poppins';">
+					<input type="checkbox" name="acceptTerms" id="acceptTerms" class="form-check-input mt-1"
+						[(ngModel)]="customerModel['acceptTerms']" #acceptTerms="ngModel"
+						[ngClass]="{'is-invalid':!acceptTerms.valid && (acceptTerms.dirty || acceptTerms.touched) }"
+						required>
+					<label for="acceptTerms" class="form-check-label"></label>
+					<span> By clicking submit, you agree to</span> <a target="_blank" href="https://www.google.co.in/">
+						<u style="color: rgb(0, 153, 255); font-weight: 500;"> the Privacy Policy and Our Terms and
+							Conditions.</u> </a>
+					<label *ngIf="acceptTerms.errors?.required" class="text-danger" id="validation-eventStatus-error"
+						class="error jquery-validation-error small form-text invalid-feedback">
+						Please Accept Terms & Conditions is required</label>
+				</div>
+				<div class="row w-100 justify-content-center text-center">
+					<button class="btn btn-cancel btn-sm mt-4 mr-3" type="button" [(routerLink)]="routerLink">
+						Back
+					</button>
+					<button class="btn btn-save btn-sm mt-4" type="button" (click)="onSumbit()">Submit
+					</button>
+				</div>
+			</div>
+		</form>
+		<ngx-spinner></ngx-spinner>
+		<ng-template #otpContant>
+			<form #otpForm="ngForm">
+				<div class="modal-body" *ngIf="isOTPPopup">
+					<div class="col-md-12 pt-3">
+						<div class="group">
+							<input type="number" name="otpnumber" [(ngModel)]="otpValue" #otpnumber="ngModel"
+								minlength="5" maxlength="5" required>
+							<span class="highlight"> </span>
+							<span class="bar"> </span>
+							<label><i class="h5 mdi mdi-cellphone-android menu-icon mr-2"></i>Enter your OTP
+								Here</label>
+							<div *ngIf="otpnumber.errors?.maxlength || otpnumber.errors?.minlength" class="text-danger">
+								Enter Valid OTP</div>
+							<span *ngIf="otpnumber.invalid && otpnumber.touched" class="text-danger">
+								OTP is required</span>
+						</div>
+						<div class="my-2 d-flex justify-content-between align-items-center">
+							<div class="form-check">
+								<h3>OTP: {{otp}}</h3>
+							</div>
+							<a (click)="reSendOtp(customerModel['email'])" style="cursor: pointer;"
+								class="auth-link text-black">
+								Resend OTP?
+							</a>
+						</div>
+						<button class="btn btn-save btn-sm my-4 float-right" type="submit" [disabled]="otpForm.invalid"
+							(click)="submitOTP()">
+							Submit
+							OTP
+						</button>
+					</div>
+				</div>
+			</form>
+			<div *ngIf="!isOTPPopup">
+				<div class="modal-body">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 nopadding margin-top-5">
+						<p class="text-center pt-4">If you want to continue with <b style="color:#ff2a2a;">Proceed</b>
+							Loan...?
+						</p>
+					</div>
+				</div>
+				<div class="modal-footer mpr-btn-padding">
+					<button type="button" class="btn btn-save btn-sm px-4" (click)="proceedLoan()">Yes</button>
+					<button type="button" class="btn btn-reject btn-sm px-4" [routerLink]="['/customer-list']"
+						(click)="closeModal()">No</button>
+				</div>
+			</div>
+		</ng-template>
+	</div>
+</div>

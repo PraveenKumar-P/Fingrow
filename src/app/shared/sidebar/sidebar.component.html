@@ -1,0 +1,44 @@
+<nav class="sidebar sidebar-offcanvas pt-3" id="sidebar">
+  <ul class="nav">
+    <div *ngFor="let menu of menuList;let i=index">
+      <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }" *ngIf="menu.programcode=='AM001'"
+        (click)="clear()">
+        <a class="nav-link" [routerLink]="menu.programurl" routerLinkActive #dashboard="routerLinkActive">
+          <span class="menu-title">{{menu.programname}}</span>
+          <i [class]="menu.programicon"></i>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngIf="menu.programcode=='AM002'">
+        <a class="nav-link" (click)="adminManagement = !adminManagement" [attr.aria-expanded]="adminManagement"
+          aria-controls="ui-basic">
+          <span class="menu-title">{{menu.programname}}</span>
+          <i class="menu-arrow"></i>
+          <i [class]="menu.programicon"></i>
+        </a>
+        <div class="collapse" id="ui-basic" [ngbCollapse]="!adminManagement">
+          <ul class="nav flex-column sub-menu" *ngFor="let sub of subMenu">
+            <li class="nav-item"> <a class="nav-link" [routerLink]="sub.programurl" routerLinkActive="active"
+                #list="routerLinkActive"
+                *ngIf="sub.programparentcode == menu.programcode  && sub.programprivilege =='V'"
+                (click)="clear()">{{sub.programname}}</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngIf="menu.programcode=='AM005'">
+        <a class="nav-link" (click)="transactionManagement = !transactionManagement"
+          [attr.aria-expanded]="transactionManagement" aria-controls="ui-basic">
+          <span class="menu-title">{{menu.programname}}</span>
+          <i class="menu-arrow"></i>
+          <i [class]="menu.programicon"></i>
+        </a>
+        <div class="collapse" id="ui-basic" [ngbCollapse]="!transactionManagement">
+          <ul class="nav flex-column sub-menu" *ngFor="let sub of subMenu">
+            <li class="nav-item"> <a class="nav-link" [routerLink]="sub.programurl" routerLinkActive="active"
+                #list="routerLinkActive" *ngIf="sub.programparentcode == menu.programcode && sub.programprivilege =='V'"
+                (click)="clear()">{{sub.programname}}</a></li>
+          </ul>
+        </div>
+      </li>
+    </div>
+  </ul>
+</nav>

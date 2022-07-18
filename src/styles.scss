@@ -1,0 +1,533 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import './assets/scss/variables';
+@import "~compass-mixins/lib/compass";
+@import "~compass-mixins/lib/animate";
+@import "~bootstrap/scss/bootstrap";
+@import "./assets/scss/fonts";
+@import "./assets/scss/functions";
+
+/* === Icon fonts === */
+@import "~@mdi/font/scss/materialdesignicons";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+/* === Template mixins === */
+@import "./assets/scss/mixins/animation";
+@import "./assets/scss/mixins/badges";
+@import "./assets/scss/mixins/buttons";
+@import "./assets/scss/mixins/misc";
+@import "./assets/scss/mixins/color-functions";
+@import "./assets/scss/mixins/cards";
+@import "./assets/scss/mixins/blockqoute";
+@import "./assets/scss/mixins/popovers";
+@import "./assets/scss/mixins/tooltips";
+
+/* === Core Styles === */
+@import "./assets/scss/background";
+@import "./assets/scss/typography";
+@import "./assets/scss/reset";
+@import "./assets/scss/responsive";
+@import "./assets/scss/misc";
+@import "./assets/scss/utilities";
+@import "./assets/scss/demo";
+@import "./assets/scss/spinner";
+
+/* === Components === */
+@import "./assets/scss/components/forms";
+@import "./assets/scss/components/checkbox-radio";
+@import "./assets/scss/components/icons";
+@import "./assets/scss/components/tables";
+@import "./assets/scss/components/accordions";
+@import "./assets/scss/components/buttons";
+@import "./assets/scss/components/breadcrumbs";
+@import "./assets/scss/components/badges";
+@import "./assets/scss/components/cards";
+@import "./assets/scss/components/preview";
+@import "./assets/scss/components/tooltips";
+@import "./assets/scss/components/popovers";
+@import "./assets/scss/components/lists";
+@import "./assets/scss/components/bootstrap-progress";
+@import "./assets/scss/components/bootstrap-alerts";
+@import "./assets/scss/components/tabs";
+@import "./assets/scss/components/dropdowns";
+@import "./assets/scss/components/date-picker";
+@import "./assets/scss/components/pagination";
+@import "./assets/scss/components/portfolio";
+@import "./assets/scss/components/todo-list";
+
+@import "./assets/scss/components/landing-screens/auth";
+
+/* === Layout === */
+@import "./assets/scss/layout";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+//validation style
+// .ng-invalid:not(form).ng-touched{
+//     border: 1px solid red;  
+// }
+
+.bg-logo-brown {
+    // background-color: #764229;
+    background: linear-gradient(360deg, #764229, #9e5e2c)
+
+}
+
+.btn-add {
+    height: 26px;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: auto;
+    font-size: 2rem;
+    background: linear-gradient(360deg, #76432a, #a05e2b);
+    padding: 15px;
+    border: 1px solid #76432a;
+    border-radius: 50px;
+    color: #fff;
+}
+
+.btn-add:hover {
+    background: linear-gradient(360deg, #a05e2b, #76432a);
+    color: #fff;
+}
+
+.nav-tabs .nav-item:active{
+    background-color: #ba8c51 !important;
+    color: white;
+}
+
+.btn-theme{
+    background: linear-gradient(360deg, #76432a, #a05e2b);
+    border: 1px solid #76432a;
+    color: #fff;
+}
+
+.btn-theme:hover {
+    background: linear-gradient(360deg, #a05e2b, #76432a);
+    color: #fff;
+}
+
+.grid-bg{
+    background: #e8d4b3;
+    padding: 15px;
+    border-radius: 0px;
+    border: 0px solid #ba8c52;
+}
+
+h3 {
+    color: #9e6b25;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-size: 13px;
+    font-weight: 500;
+    color: #a05e2b
+}
+
+.form-control {
+       border: 1px solid #adadad;
+    font-family:  'Poppins', sans-serif !important;
+    font-size: 0.8125rem;
+    border-radius: 3px;
+}
+
+.btn-outline-theme {
+    color: #a05e2b;
+    border-color: #a05e2b;
+}
+
+.btn-outline-theme:hover, .btn-outline-theme:focus, .btn-outline-theme:active {
+    background: linear-gradient(89deg, #aa7e42, #aa7e42);
+    color: #ffffff;
+}
+
+.pagination {
+    position: relative;
+}
+
+.text-center{
+    cursor: pointer;
+}
+
+.my-pagination {
+    margin : 0px 0 0 0;
+    position: absolute;
+    right: 0;
+}
+
+.btn-theme-one{
+    color: #ffffff;
+    background-color: #764229;
+    border-color: #ffffff;
+}
+
+.btn-primary {
+    color: #212529;
+    background-color: #764229 !important;
+    border-color: #ffffff;
+}
+
+.drop-align{
+    left: 0rem;
+}
+
+.sidebar {
+    min-height: calc(100vh - 70px);
+    background: #764229;
+    font-family:  'Poppins', sans-serif !important;
+    padding: 0;
+    width: 260px;
+    z-index: 11;
+    transition: width 0.25s ease, background 0.25s ease;
+    -webkit-transition: width 0.25s ease, background 0.25s ease;
+    -moz-transition: width 0.25s ease, background 0.25s ease;
+    -ms-transition: width 0.25s ease, background 0.25s ease;
+    height: 100%;
+}
+
+.text-danger {
+    color: #d40f0f !important;
+    font-size: 12px;
+    position: absolute;
+}
+
+ngb-datepicker .ngb-dp-header ngb-datepicker-navigation .ngb-dp-navigation-select select.custom-select {
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #000000;
+}
+
+.table thead th, th {
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    font-family: "Poppins" !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.btn-cancel{
+    background: linear-gradient(360deg, #a4a4a6, #dadadc);
+    border: 1px solid #b3b3b3;
+    color: #5a5a5a;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+}
+
+.btn-cancel:hover{
+    background: linear-gradient(360deg, #dadadc, #a4a4a6);
+    border: 1px solid #b3b3b3;
+    color: #5a5a5a;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+}
+
+.btn-reject {
+        background: linear-gradient(360deg, #963434, #ff5959);
+        border: 1px solid #f98080;
+        color: #fff;
+        font-weight: 500;
+        font-family: 'Poppins' !important;
+}
+
+.btn-reject:hover {
+    background: linear-gradient(360deg, #ff5959, #963434 );
+    border: 1px solid #f98080;
+    color: #fff !important;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+}
+
+.btn-save {
+    background: linear-gradient(360deg, #2e731d, #35bf29);
+    border: 1px solid #33ae26;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+}
+
+.btn-save:hover {
+    background: linear-gradient(360deg, #35bf29, #2e731d);
+    border: 1px solid #33ae26;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+}
+
+.btn-accept {
+    background: linear-gradient(360deg, #af6911, #ff7e00);
+    border: 1px solid #e37606;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+}
+
+.btn-accept:hover {
+    background: linear-gradient(360deg, #ff7e00,  #af6911);
+    border: 1px solid #e37606;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Poppins' !important;
+}
+
+.top-half-icon{
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    border: 2px solid #9e6c28;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    background: linear-gradient(360deg, #a05e2b, #76432a);
+}
+
+.top-half-icon-two{
+    position: absolute;
+    top: -15px;
+    right: 64px;
+    border: 4px solid #d6a35c;
+    border-radius: 60px;
+    background: linear-gradient(360deg, #a05e2b, #76432a);
+}
+
+.main-card-head{
+       background: linear-gradient(45deg, #764229 10%, #d6a35c 30%, #9d5d2b00 0%);
+        font-family: 'Poppins' !important;
+        color: #ffffff;
+}
+
+thead > tr > th {
+    background: linear-gradient(360deg, #764229, #9e5e2c);
+    text-align: center !important;
+    color: #ffffff !important;
+    padding: 0.5rem !important;
+    line-height: 0 !important;
+    border: 1px solid #ebedf200 !important;
+    font-family: "Poppins" !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-shadow: 1px 1px black !important;
+}
+
+.table td {
+padding: 0.2rem 10px !important;
+vertical-align: middle !important;
+border-top: 1px solid #ebedf2 !important;
+font-family: "Poppins", sans-serif !important;
+}
+
+.sub-card-head {
+background: #e2dcd5;
+font-weight: 500;
+font-family: 'Poppins' !important;
+color: #764229;
+}
+
+.i-accept{
+    color: #52b952;
+}
+
+.btn .badge-alert {
+    position: absolute;
+    top: -5px;
+    left: 27px;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f10000;
+    border-radius: 50px;
+    border: 0px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.f-10{
+    font-size: 10px !important;
+}
+
+.f-14{
+    font-size: 14px !important;
+}
+
+.p-text{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+table {
+    width: 100%;
+    font-family: "Poppins" !important;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+    font-family: "Poppins" !important;
+font-size: 12px !important;
+font-weight: 400 !important;
+text-shadow: 1px 1px black !important;
+  }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Poppins" !important;}
+
+tr.mat-header-row {
+    height: auto !important;
+    font-family: "Poppins" !important;
+}
+
+td.mat-cell, td.mat-footer-cell {
+    padding: 0.2rem 10px !important;
+    border: 1px solid #ebedf2 !important;
+    font-size: 12px !important;
+    font-family: "Poppins" !important;
+}
+
+tr.mat-row, tr.mat-footer-row {
+    height: 30px !important;
+    font-family: "Poppins" !important;
+}
+
+.hidenoData {
+    display: none;
+}
+
+.mat-sort-header-arrow {
+    height: 12px;
+    width: 12px;
+    min-width: 12px;
+    position: relative !important;
+    display: flex;
+    opacity: 1 !important;
+    color: #e2bf88 !important;
+    margin-left: auto !important;
+    top: -3px !important;
+}
+
+
+.mat-sort-header-content {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 12px !important;
+    font-family: 'Poppins' !important;
+    font-weight: 400 !important;
+    text-shadow: 1px 1px black !important;
+}
+
+.mat-paginator, .mat-select-value, .mat-select-arrow {
+    color: #ffffff;
+     font-family: 'Poppins' !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: #ffffff;
+}
+
+.card-heading {
+    background: linear-gradient(45deg, #764229 10%, #d6a35c 30%, #9d5d2b00 0%);
+    color: #ffffff;
+    margin: 0px !important;
+    padding: 5px 1.5rem;
+    font-weight: 400 !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-shadow: 1px 1px black !important;
+    font-family: "Poppins" !important;
+}
+
+.mat-paginator {
+    background: linear-gradient( 180deg, #764229, #9e5e2c);
+    font-family: 'Poppins' !important;
+}
+
+.mat-table {
+    font-family: 'Poppins' !important;
+}
+
+// td:nth-last-child(2){
+//     text-align: center;
+//   }
+
+td:last-child {
+    text-align: center !important;
+}
+
+.modal-content {
+    border: 0px solid #ebedf2 !important;
+    border-radius: 0rem !important;
+}
+
+.mat-paginator-page-size-select {
+    font-family: 'Poppins'!important;
+    margin: 0px 4px 0 4px !important;
+    width: 56px;
+}
+
+.mat-paginator-container {
+    min-height: 30px !important;
+    font-family: 'Poppins'!important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 1em !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 0.29em 0 !important;
+}
+
+.mat-typography,
+.mat-typography h6,
+.mat-typography h5,
+.mat-typography h4,
+.mat-typography h3,
+.mat-typography h2,
+.mat-typography h1 {
+    font-family: "Poppins" !important;
+}
+
+.mat-datepicker-toggle{
+    color: #764229 !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

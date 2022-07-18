@@ -1,0 +1,75 @@
+<div class="d-flex align-items-center auth px-0"
+  style="display: flex !important;align-items: center !important;align-content: center;align-self: center;height: 100vh;background: url(/assets/images/fingrow_bg.jpg);background-size: cover;background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+  <div class="container">
+    <h2 style="color: whitesmoke;"><b> KNILA TESTING BUILD</b></h2>
+    <div class="w-100 mx-0">
+      <form (ngSubmit)="authenticate()" #loginForm="ngForm">
+        <div class="col-md-8 col-lg-6 mx-auto">
+          <div class="auth-form-light text-left pb-4 px-4 px-sm-5"
+            style="border-radius: 40px; border: 7px solid #764229;">
+            <div style="text-align: center; margin-bottom: -10px;">
+              <img src="assets/images/fingrow_logo.png" alt="logo" class="mx-auto w-own">
+            </div>
+            <div class="group pb-3">
+              <input type="email" class="validation" placeholder="Username" [(ngModel)]="loginModel['UserName']"
+                #userName="ngModel" name="userName" pattern="(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+                required>
+              <span class="highlight"> </span>
+              <span class="bar"> </span>
+              <label><i class="h5 mdi mdi-email menu-icon mr-2"></i>Email<span class="asterisk">*</span></label>
+              <div *ngIf="userName.errors?.pattern" class="text-danger">Enter Valid
+                Email</div>
+              <div *ngIf="userName.invalid && userName.touched && !userName.errors?.pattern" class="text-danger">
+                Email is required</div>
+            </div>
+            <div class="group pb-3">
+              <input type="password" class="validation" [(ngModel)]="loginModel['Password']" #password="ngModel"
+                name="password" placeholder="Ex: Example@123" minlength="5" maxlength="12"
+                pattern="^[ A-Za-z0-9_@./#&]*$" required>
+              <span class="highlight"> </span>
+              <span class="bar"> </span>
+              <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Password<span class="asterisk">*</span></label>
+              <div *ngIf="password.errors?.minlength" class="text-danger">
+                Password minimum 5 characeters & maximum 12 characeters</div>
+              <div *ngIf="password.errors?.pattern && !password.errors?.minlength" class="text-danger">
+                Enter Valid password</div>
+              <div
+                *ngIf="password.invalid && password.touched && !password.errors?.pattern && !password.errors?.minlength"
+                class="text-danger">
+                Password is required
+              </div>
+            </div>
+            <div class="py-3">
+              <button class="btn btn-block btn-primary btn-lg auth-form-btn" type="submit">LOG IN
+              </button>
+            </div>
+            <div class="my-2 d-flex justify-content-between align-items-center">
+              <a [routerLink]="['/auth/agent-signup']" class="auth-link text-black">Agent SignUp?</a>
+              <a [routerLink]="['/auth/check-otp']" class="auth-link text-black">Forgot password?</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #EAgreement>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"> E-Agreement </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 nopadding margin-top-5">
+      <app-e-agreement [htmlContant]="htmlText"></app-e-agreement>
+    </div>
+  </div>
+  <div class="modal-footer mpr-btn-padding">
+    <button type="button" class="btn btn-save btn-sm" [disabled]="isClicked" (click)="onSubmit()">
+      Submit
+    </button>
+  </div>
+</ng-template>

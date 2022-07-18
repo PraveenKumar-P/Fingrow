@@ -1,0 +1,70 @@
+<div class="d-flex align-items-center auth px-0"
+    style="display: flex !important;align-items: center !important;align-content: center;align-self: center;height: 100vh;background: url(/assets/images/fingrow_bg.jpg);background-size: cover;background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+    <div class="container">
+        <div class="w-100 mx-0">
+            <form (ngSubmit)="authorizationSubmit()" #authorizationForm="ngForm">
+                <div class="col-md-6 mx-auto">
+                    <div class="auth-form-light text-left py-5 px-4 px-sm-5"
+                        style="border-radius: 40px; border: 7px solid #764229;">
+                        <div class="brand-logo text-center">
+                            <h3> User Authorization </h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="group">
+                                    <input type="number" class="validation" placeholder="OTP"
+                                        [(ngModel)]="authorizationModel['OTP']" #otp="ngModel" name="otp" required>
+                                    <span class="highlight"> </span>
+                                    <span class="bar"> </span>
+                                    <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>OTP Verification</label>
+                                    <div *ngIf="otp.invalid && otp.touched" class="text-danger">
+                                        OTP is required</div>
+                                </div>
+                            </div>
+                            <h2 class="px-3">Set Password</h2>
+                            <div class="col-12">
+                                <div class="group">
+                                    <input type="password" class="validation"
+                                        [(ngModel)]="authorizationModel['Password']" #password="ngModel" name="password"
+                                        placeholder="Password" pattern="^[A-Z[1][a-z 0-9 @ a-z 0-9]*$" minlength="5"
+                                        maxlength="12" required>
+                                    <span class="highlight"> </span>
+                                    <span class="bar"> </span>
+                                    <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>New Password</label>
+                                    <div *ngIf="password.errors?.minlength" class="text-danger">Password minimum 5
+                                        characeters & maximum 12 characeters</div>
+                                    <div *ngIf="password.errors?.pattern" class="text-danger">Enter Valid
+                                        password</div>
+                                    <div *ngIf="password.invalid && password.touched && !password.errors?.minlength && !password.errors?.pattern"
+                                        class="text-danger">
+                                        Password is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="group">
+                                    <input type="password" class="validation" [(ngModel)]="confirmPassword"
+                                        #cpassword="ngModel" name="cpassword" placeholder="Confirm Password" required
+                                        pattern="{{ authorizationModel['Password']}}">
+                                    <span class="highlight"> </span>
+                                    <span class="bar"> </span>
+                                    <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Confirm Password</label>
+                                    <div class="text-danger"
+                                        *ngIf="cpassword.touched && cpassword.invalid && !cpassword.errors?.pattern">
+                                        Confirm Password is required.
+                                    </div>
+                                    <div class="text-danger" *ngIf="cpassword.errors?.pattern">
+                                        Password & Confirm Password does not match.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-save btn-sm" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,250 @@
+<ngx-spinner></ngx-spinner>
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card mt-5">
+        <div class="card-body">
+            <div class="row d-flex justify-content-between">
+                <h2 class="ml-4" style="color: #8e4c2c;">User Profile</h2>
+                <img src="{{profilePicture}}" class="user-img" height="100px" width="100px" />
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="firstName" class="validation" placeholder="Full name"
+                            [(ngModel)]="userDetails['firstname']" #firstName="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Full Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="fatherName" class="validation" placeholder="Father Name"
+                            [(ngModel)]="userDetails['fathername']" #fatherName="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>father Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="dateofBirth" class="validation"
+                            [(ngModel)]="userDetails['dateofbirth']" #dateofBirth="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Date Of Birth</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="dateofRegister" class="validation"
+                            [(ngModel)]="userDetails['dateofregister']" #dateofRegister="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Date Of Registration</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="dateofJoin" class="validation" [(ngModel)]="userDetails['dateofjoin']"
+                            #dateofJoin="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Date Of Join</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="mobileNumber" class="validation"
+                            [(ngModel)]="userDetails['mobilenumber']" #mobilenumber="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-cellphone-android menu-icon mr-2"></i>Mobile</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="email" class="validation" [(ngModel)]="userDetails['emailid']"
+                            #email="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-email menu-icon mr-2"></i>Email</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="panNumber" class="validation" [(ngModel)]="userDetails['pannumber']"
+                            #panNumber="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-credit-card menu-icon mr-2"></i>PAN Number</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="usertypeName" class="validation" [(ngModel)]="userType['usertypename']"
+                            #usertypeName="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account-star menu-icon mr-2"></i>User Type</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="roleName" class="validation" [(ngModel)]="userRole['rolename']"
+                            #roleName="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-rename-box menu-icon mr-2"></i>Role Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="gender" class="validation" [(ngModel)]="userDetails['gender']"
+                            #gender="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Gender</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="address" class="validation" [(ngModel)]="userDetails['address']"
+                            #address="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-home-map-marker menu-icon mr-2"></i>Door
+                            No. & Street</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="street" class="validation" [(ngModel)]="userDetails['street']"
+                            #street="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-map-marker-radius menu-icon mr-2"></i>Area/Village</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="country" class="validation" [(ngModel)]="userCountry['countryname']"
+                            #country="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-map menu-icon mr-2"></i>Country</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="state" class="validation" [(ngModel)]="userStates['statename']"
+                            #state="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-map-marker-circle menu-icon mr-2"></i>State</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="city" class="validation" [(ngModel)]="userCity['cityname']"
+                            #city="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-city menu-icon mr-2"></i>City</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mt-4 mb-3" style="color: #8e4c2c;">Office Address</h2>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="address" class="validation" [(ngModel)]="userDetails['officeaddress']"
+                            #address="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-home-map-marker menu-icon mr-2"></i>Door
+                            No. & Street</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="street" class="validation" [(ngModel)]="userDetails['officestreet']"
+                            #street="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-map-marker-radius menu-icon mr-2"></i>Area/Village</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="officecountry" class="validation"
+                            [(ngModel)]="officeCountry['countryname']" #officecountry="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-map menu-icon mr-2"></i>Office Country</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="officeState" class="validation" [(ngModel)]="officeStates['statename']"
+                            #officeState="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-map-marker-circle menu-icon mr-2"></i>Office States</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="officecity" class="validation" [(ngModel)]="officeCity['cityname']"
+                            #officecity="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-city menu-icon mr-2"></i>Office City</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mt-4 mb-3" style="color: #8e4c2c;">Bank Details</h2>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="bankname" class="validation" [(ngModel)]="bankMaster['bankname']"
+                            #bankname="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-bank menu-icon mr-2"></i>Bank Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="ifsc" class="validation" [(ngModel)]="userDetails['ifsccode']"
+                            #ifsc="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>IFSC Code</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="bankAccountName" class="validation"
+                            [(ngModel)]="userDetails['bankaccountname']" #bankAccountName="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-account-box menu-icon mr-2"></i>Account Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="group">
+                        <input type="text" name="bankaccountNumber" class="validation"
+                            [(ngModel)]="userDetails['bankaccountnumber']" #bankaccountNumber="ngModel" readonly="true">
+                        <span class="highlight"> </span>
+                        <span class="bar"> </span>
+                        <label><i class="h5 mdi mdi-numeric menu-icon mr-2"></i>Account Number</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

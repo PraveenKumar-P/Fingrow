@@ -1,0 +1,71 @@
+export const Constants = {
+    SUPER_ADMIN_TYPE_CODE: 'SA',
+    ADMIN_TYPE_CODE: 'AD',
+    AGENT_TYPE_CODE: 'AG',
+    MAKER_TYPE_CODE: 'MK',
+    CHECKER_TYPE_CODE: 'CK',
+    CUSTOMER_TYPE_CODE: 'CU',
+    VALIDATOR_1_TYPE_CODE: 'VT',
+    VALIDATOR_2_TYPE_CODE: 'V2',
+    APPROVER_TYPE_CODE: 'AP',
+    ACTIVE_ROLES: 0,
+    ACTIVE_INACTIVE_ROLES: -1,
+    ABOUT_FINGROW_MASTERS: [
+        { id: 'Social', value: 'Social' },
+        { id: 'Web', value: 'Web' },
+        { id: 'Others', value: 'Others' }
+    ],
+    USER_TYPE: [
+        { usertypecode: 'SA', usertypename: 'Super Admin' },
+        { usertypecode: 'AD', usertypename: 'Admin' },
+        { usertypecode: 'AG', usertypename: 'Agent' },
+        { usertypecode: 'VT', usertypename: 'Validator One' },
+        { usertypecode: 'V2', usertypename: 'Validator Two' },
+        { usertypecode: 'MK', usertypename: 'Maker' },
+        { usertypecode: 'CK', usertypename: 'Checker' },
+        { usertypecode: 'AP', usertypename: 'Approver' },
+        { usertypecode: 'CU', usertypename: 'Customer' }
+    ],
+    USER_ACTIVATION_MASTER: [
+        { id: '1', value: 'Approved' },
+        { id: '2', value: 'Pending for eligibiliy check' },
+        { id: '3', value: 'Pending for E-Agreement' },
+        { id: '4', value: 'Rejected' },
+        { id: '5', value: 'Pending Email Verification by Agent' },
+        { id: '6', value: 'Pending OTP Verification by Customer' }
+    ],
+    APPROVED_MASTER_ID: 1,
+    ELIGIBILITY_MASTER_ID: 2,
+    E_AGREEMENT_MASTER_ID: 3,
+    REJECTED_MASTER_ID: 4,
+    EMAIL_VERIFICATION_MASTER_ID: 5,
+    OTP_VERIFICATION_MASTER_ID: 6,
+    ANSWER_TYPE: [
+        'Excellent',
+        'VeryGood',
+        'Good',
+        'Moderate',
+        'Beginner'
+    ],
+    LOAN_STATUS_TYPE: [
+        { usertypecode: 'SA', usertypename: 'Super Admin', type: '' },
+        { usertypecode: 'AD', usertypename: 'Admin', type: '' },
+        { usertypecode: 'AG', usertypename: 'Agent', type: '' },
+        { usertypecode: 'VT', usertypename: 'Validator', type: '' },
+        { usertypecode: 'AP', usertypename: 'Approver', type: '' },
+        { usertypecode: 'CU', usertypename: 'Customer', type: 'P' }
+    ],
+    SAVE_DRAFT: 1,
+    VALIDATOR_1_RESPONSE: 2,
+    VALIDATOR_2_RESPONSE: 3,
+    APPROVER_RESPONSE: 4,
+    BANK_RESPONSE: 5,
+    REJECTED: 6,
+    APPLICATION_APPROVED: 7,
+    REJECTED_BY_APPROVER: 8,
+    REJECTED_BY_VALIDATOR_2: 9,
+    REJECTED_BY_VALIDATOR_1: 10,
+    PENDING_VALIDATOR_1_RESPONSE: 11,
+    PENDING_VALIDATOR_2_RESPONSE: 12,
+    PENDING_APPROVED_RESPONSE: 13
+};

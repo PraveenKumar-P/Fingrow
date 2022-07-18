@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="spacer">
+        <div class="row">
+            <div class="col-lg-8  col-lg-offset-1">
+                <div class="well">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <span class="left-title">
+                                Home Loan Amount
+                            </span>
+                            <input type="text" style="width:44%;float:right;" class="form-control" (blur)="tbupdate(0)" 
+                                [(ngModel)]="query.amount" #amountLoan="ngModel" placeholder="Loan Amount" name="pemi.highValue" inputmode="numeric" (keypress)="isNumber($event)" />
+                                <!-- <div *ngIf="amountLoan.errors?.minlength"  class="text-danger">Enter Valid LoanAmount</div>
+                                <div *ngIf="amountLoan.invalid && amountLoan.touched && !amountLoan.errors?.minlength" class="text-danger">Loan Amount minimum 50K</div> -->
+                        </div>
+                        <ng5-slider [(value)]="pemi.value" [options]="poptions" (userChangeEnd)="update()">
+                        </ng5-slider>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <span class="left-title">
+                                Interest Rate
+                            </span>
+                            <input type="text" style="width:44%;float:right;" class="form-control" (blur)="tbupdate(1)"
+                                [(ngModel)]="query.interest" placeholder="Interest Rate" name="remi.highValue" inputmode="numeric" (keypress)="isNumber($event)" />
+                        </div>
+                        <ng5-slider [(value)]="remi.value" [options]="roptions" (userChangeEnd)="update()">
+                        </ng5-slider>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <span class="left-title">Loan Tenure</span>
+                            <input type="text" *ngIf="yrToggel" class="form-control" (blur)="tbupdate(2)"
+                                placeholder="Loan Tenure in Yr" [(ngModel)]="query.tenureYr" inputmode="numeric" (keypress)="isNumber($event)"
+                                style="width:30%;float:right;"> 
+                            <input type="text" *ngIf="!yrToggel" class="form-control" (blur)="tbupdate(3)"
+                                placeholder="Loan Tenure in Mo" [(ngModel)]="query.tenureMo" inputmode="numeric" (keypress)="isNumber($event)"
+                                style="width:30%;float:right;">
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" [ngClass]="{'active':yrToggel}"
+                                    (click)="yrToggel=true;update()" type="button">Yr</button>
+                                <button class="btn btn-outline-secondary" [ngClass]="{'active':!yrToggel}"
+                                    (click)="yrToggel=false;update()" type="button">Mo</button>
+                            </div>
+                        </div>
+                        <ng5-slider *ngIf="yrToggel" [(value)]="temi.value" [options]="toptions"
+                            (userChangeEnd)="update()">
+                        </ng5-slider>
+                        <ng5-slider *ngIf="!yrToggel" [(value)]="memi.value" [options]="moptions"
+                            (userChangeEnd)="update()">
+                        </ng5-slider>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="well">
+                    <div class="jusify-center">
+                        <h5> Loan EMI </h5>
+                        <span class="result">
+                            {{result.emi || "--"}}
+                        </span>
+                    </div>
+                    <hr />
+                    <div>
+                        <h5>Total Interest Payable</h5>
+                        <span class="result">
+                            {{result.interest || "--"}}
+                        </span>
+                    </div>
+                    <hr />
+                    <div>
+                        <h5> Total Payment </h5>
+                        <h6> (Principal + Interest) </h6>
+                        <span class="result">
+                            {{result.total || "--"}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

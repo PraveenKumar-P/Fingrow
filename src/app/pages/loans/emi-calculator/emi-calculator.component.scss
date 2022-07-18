@@ -1,0 +1,43 @@
+.left-title{
+    font-size: 15px;
+    font-weight: 500;
+    color: gray;
+}
+.result{
+    font-size: 16px;
+    font-weight: 600;
+}
+h5,h6{
+    color: gray;
+}
+.active{
+    background-color: lightgray;
+}
+
+h1{
+    font-size: 35px;
+    color: gray;
+}
+.ng5-slider .ng5-slider-pointer {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    top: -14px;
+    background-color: #a05e2b !important;
+    z-index: 3;
+    border-radius: 16px;
+}
+@media only screen and (max-width: 768px) {
+    h1{
+        font-size: 15px;
+        color: gray;
+    }
+   
+}
+@media only screen and (min-width: 992px) {
+    h1{
+        font-size: 35px;
+        margin-bottom: -20px;   
+    }
+}
+

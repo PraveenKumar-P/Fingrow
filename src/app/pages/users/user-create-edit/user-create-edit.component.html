@@ -1,0 +1,738 @@
+<ngx-spinner></ngx-spinner>
+<div class="container-fuild" style="background-color: white;">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="nav-tabs">
+        <li [ngbNavItem]="1" class="cust-list-item"
+            [ngStyle]="active == 1 ? {'background-color': '#ceb07f','color':'white'} : {'background-color': '#f5f5f5'}">
+            <span>Personal Information</span>
+            <ng-template ngbNavContent>
+                <form #personalForm="ngForm">
+                    <div class="row m-0">
+                        <div class="col-md-12 mb-2 mt-5 p-0">
+                            <div class="bg-white p-3" style="box-shadow: 0 0 15px 0 rgb(158 107 37 / 55%);">
+                                <div class="row">
+                                    <div class="col-md-12 d-flex justify-content-start position-absolute">
+                                        <div class="text-center user-img-position mb-3">
+                                            <img [src]="(profImage) ? profImage : defaultImage" alt="Avatar"
+                                                class="cust-prof-img">
+                                            <div class="container prof-upload-btn mt-0">
+                                                <label for="file-upload" class="btn-img-add user-img-upload">
+                                                    +
+                                                </label>
+                                                <input class="profile" id="file-upload" #profileFile type="file"
+                                                    accept=".jpg, .jpeg"
+                                                    (change)="profileChangeListener($event,profileFile)" />
+                                            </div>
+                                        </div>
+                                        <label class="ml-auto h3">
+                                        </label>
+                                        <div class="text-center mt-5 pt-4"></div>
+                                    </div>
+                                    <div class="col-md-3 mt-lg-4 pt-3">
+                                        <div class="group">
+                                            <input type="text" name="fullName" class="validation"
+                                                [(ngModel)]="userRegisterModel['firstname']" #fullName="ngModel"
+                                                placeholder="Full Name" (keypress)="isCharacter($event)"
+                                                oncopy="return false" onpaste="return false" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Full Name<span class="asterisk">*</span></label>
+                                            <span *ngIf="fullName.invalid && fullName.touched" class="text-danger">
+                                                Full name is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mt-lg-4 pt-md-3">
+                                        <div class="group">
+                                            <input type="text" name="fatherName" class="validation"
+                                                [(ngModel)]="userRegisterModel['fathername']" #fatherName="ngModel"
+                                                (keypress)="isCharacter($event)" oncopy="return false"
+                                                onpaste="return false" placeholder="Father Name" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>Father Name<span class="asterisk">*</span></label>
+                                            <span *ngIf="fatherName.invalid && fatherName.touched" class="text-danger">
+                                                Father name is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mt-lg-4 pt-md-3">
+                                        <div class="group">
+                                            <select class="select-text validation" name="gender"
+                                                [(ngModel)]="userRegisterModel['gender']" #gender="ngModel" required>
+                                                <option *ngFor="let gender of genderMaster" [value]="gender.id">
+                                                    {{gender.value}}</option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-gender-male-female menu-icon mr-2"></i>Gender<span class="asterisk">*</span></label>
+                                            <span *ngIf="gender.invalid && gender.touched" class="text-danger">
+                                                Gender is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mt-lg-4 pt-md-3">
+                                        <div class="group">
+                                            <input type="text" name="email" class="validation"
+                                                [(ngModel)]="userRegisterModel['email']" #email="ngModel"
+                                                placeholder="Email" [readonly]="!isCreate"
+                                                pattern="(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-email menu-icon mr-2"></i>Email<span class="asterisk">*</span></label>
+                                            <div *ngIf="email.errors?.pattern" class="text-danger">Enter Valid Email
+                                            </div>
+                                            <div *ngIf="email.invalid && email.touched && !email.errors?.pattern"
+                                                class="text-danger">
+                                                Email is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="group">
+                                            <input type="text" name="panCard" class="validation"
+                                                placeholder="ABCDE1234F" uppercase [readonly]="!isPan"
+                                                [(ngModel)]="userRegisterModel['pannumber']" specialIsAlphaNumeric
+                                                #panCard="ngModel" minlength="10" maxlength="10"
+                                                pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" oncopy="return false"
+                                                onpaste="return false" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-credit-card menu-icon mr-2"></i>PAN card<span class="asterisk">*</span></label>
+                                            <div *ngIf="panCard.errors?.pattern" class="text-danger">Enter Valid
+                                                PanNumber(ex:ABCDE1234F)</div>
+                                            <span *ngIf="panCard.invalid && panCard.touched && !panCard.errors?.pattern"
+                                                class="text-danger">
+                                                PAN Number is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="group">
+                                            <select class="select-text validation" type="text" name="countrycode"
+                                                [(ngModel)]="userRegisterModel['countrycode']" #countrycode="ngModel"
+                                                autocomplete="off">
+                                                <option *ngFor="let country of countries" [value]="country.countryid">
+                                                    {{country.countrycode}} {{country.countryextension}}</option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-map menu-icon mr-2"></i>Country Code</label>
+                                            <span *ngIf="countrycode.invalid && countrycode.touched"
+                                                class="text-danger">
+                                                Country code is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="group">
+                                            <input type="text" name="mobile" class="validation"
+                                                aria-label="Text input with dropdown button"
+                                                [(ngModel)]="userRegisterModel['mobilenumber']" #mobile="ngModel"
+                                                placeholder="9999999999" pattern="^([6-9]{1})([0-9]{9})$" maxlength="10"
+                                                inputmode="numeric" (keypress)="isNumber($event)" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i
+                                                    class="h5 mdi mdi-cellphone-android menu-icon mr-2"></i>Mobile<span class="asterisk">*</span></label>
+                                            <div *ngIf="mobile.errors?.pattern" class="text-danger">Enter Valid Mobile
+                                                Number
+                                            </div>
+                                            <div *ngIf="mobile.invalid && mobile.touched && !mobile.errors?.pattern"
+                                                class="text-danger">
+                                                Mobile Number is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="group">
+                                            <input class="validation" placeholder="dd-mm-yyyy" name="dateOfBirth"
+                                                [(ngModel)]="userRegisterModel['dateofbirth']" ngbDatepicker
+                                                [restoreFocus]="false" #dobvar="ngModel" #dateOfBirth="ngbDatepicker"
+                                                [maxDate]="maxDate" (focus)="dateOfBirth.toggle()"
+                                                (ngModelChange)="ageCalculator($event)" readonly required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-calendar menu-icon mr-2"></i>Date of
+                                                Birth<span class="asterisk">*</span></label>
+                                            <div *ngIf="dobvar.invalid && dobvar.touched" class="text-danger">
+                                                Date of birth is required</div>
+                                            <div *ngIf="showAge < 18" class="text-danger">
+                                                Age must be greater than 18</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="isDateCreate">
+                                        <div class="group">
+                                            <input class="validation" placeholder="dd-mm-yyyy" name="dateOfRegistration"
+                                                [(ngModel)]="userRegisterModel['dateofregistration']" ngbDatepicker
+                                                #dateOfRegistration="ngbDatepicker" #dorvar="ngModel" readonly>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-calendar menu-icon mr-2"></i>Date of
+                                                Registration</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="isDateCreate">
+                                        <div class="group">
+                                            <input class="validation" placeholder="dd-mm-yyyy" name="dateOfJoin"
+                                                [(ngModel)]="userRegisterModel['dateofjoin']" ngbDatepicker
+                                                #dateOfJoin="ngbDatepicker" readonly #dojvar="ngModel">
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-calendar menu-icon mr-2"></i>Date of
+                                                Join</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="group">
+                                            <select class="select-text validation" placeholder="User Type"
+                                                name="userTypeCode" [(ngModel)]="userRegisterModel['usertypecode']"
+                                                #userTypeCode="ngModel" required>
+                                                <option *ngFor="let type of masterUserTypes" [value]="type.usertypecode"
+                                                    [disabled]="!isUsertype">
+                                                    {{type.usertypename}}
+                                                </option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-account-star menu-icon mr-2"></i>User
+                                                Types<span class="asterisk">*</span></label>
+                                            <span *ngIf="userTypeCode.invalid && userTypeCode.touched"
+                                                class="text-danger">
+                                                Choose User Type</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <div class="group">
+                                            <select class="select-text validation" name="roles"
+                                                [(ngModel)]="userRegisterModel['roleid']" #roles="ngModel" required>
+                                                <option *ngFor="let role of masterRoles" [value]="role.roleid">
+                                                    {{role.rolename}}
+                                                </option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-account-check menu-icon mr-2"></i>User
+                                                Roles<span class="asterisk">*</span></label>
+                                            <span *ngIf="roles.invalid && roles.touched" class="text-danger">
+                                                Choose Role</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6 pr-md-2 mb-3 mb-lg-0">
+                                <div class="row pb-3 bg-white m-0"
+                                    style="box-shadow: 0 0 15px 0 rgb(158 107 37 / 55%);">
+                                    <div class="col-md-12 mt-3">
+                                        <div><span class="cust-pre-fill font-weight-bold">Residential Address</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="group">
+                                            <input type="text" name="address" class="validation" placeholder="Address"
+                                                [(ngModel)]="userRegisterModel['address']" #address="ngModel" min="5"
+                                                max="600" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-home-map-marker menu-icon mr-2"></i>Door
+                                                No. & Street<span class="asterisk">*</span></label>
+                                            <span *ngIf="address.invalid && address.touched" class="text-danger">
+                                                Door number is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="group">
+                                            <input type="text" name="street" class="validation" placeholder="Street"
+                                                [(ngModel)]="userRegisterModel['street']" #street="ngModel" min="10"
+                                                max="150" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i
+                                                    class="h5 mdi mdi-map-marker-radius menu-icon mr-2"></i>Area/Village<span class="asterisk">*</span></label>
+                                            <span *ngIf="street.invalid && street.touched" class="text-danger">
+                                                Area/Village is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="group">
+                                            <select class="select-text validation" name="varcountry"
+                                                [(ngModel)]="userRegisterModel['countryid']" #varcountry="ngModel"
+                                                (change)="changeCountry(userRegisterModel['countryid']);" required>
+                                                <option *ngFor="let country of countries" [value]="country.countryid">
+                                                    {{country.countryname}}</option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-map menu-icon mr-2"></i>Country<span class="asterisk">*</span></label>
+                                            <span *ngIf="varcountry.invalid && varcountry.touched" class="text-danger">
+                                                Choose Country</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="group">
+                                            <select class="select-text validation" name="varstate"
+                                                [(ngModel)]="userRegisterModel['stateid']" #varstate="ngModel"
+                                                [disabled]="!(states.length > 0)"
+                                                (change)="changeState(userRegisterModel['stateid']);" required>
+                                                <option *ngFor="let state of states" [value]="state.stateid">
+                                                    {{state.statename}}
+                                                </option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-map-marker-circle menu-icon mr-2"></i>State<span class="asterisk">*</span></label>
+                                            <span *ngIf="varstate.invalid && varstate.touched" class="text-danger">
+                                                Choose State</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="group">
+                                            <select class="select-text validation" name="varcity"
+                                                [(ngModel)]="userRegisterModel['cityid']" #varcity="ngModel"
+                                                [disabled]="!(cities.length > 0)" required>
+                                                <option value="0">--Select City--</option>
+                                                <option *ngFor="let city of cities" [value]="city.cityid">
+                                                    {{city.cityname}}
+                                                </option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-city menu-icon mr-2"></i>City<span class="asterisk">*</span></label>
+                                            <span *ngIf="varcity.invalid && varcity.touched" class="text-danger">
+                                                Choose City</span>
+                                            <span
+                                                *ngIf="userRegisterModel['stateid'] != 0 && userRegisterModel['cityid'] == 0 || varcity.invalid && varcity.touched"
+                                                class="text-danger">
+                                                Choose City</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pl-md-2">
+                                <div class="row pb-3 bg-white m-0"
+                                    style="box-shadow: 0 0 15px 0 rgb(158 107 37 / 55%);">
+                                    <div class="col-md-12 mt-3">
+                                        <input type="checkbox" [checked]="isEqual" (change)="enableSameAddress($event)"
+                                            class="mb-0 mt-1 w-auto float-left">
+                                        <div><span class="cust-pre-fill font-weight-bold">Office Address</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="group">
+                                            <input type="text" name="officeAddress" class="validation"
+                                                placeholder="Address" [(ngModel)]="userRegisterModel['officeaddress']"
+                                                #officeAddress="ngModel" min="5" max="600" required>
+                                            <span class="highlight"> </span>
+                                            <span class="bar"> </span>
+                                            <label><i class="h5 mdi mdi-home-map-marker menu-icon mr-2"></i>Door
+                                                No. & Street<span class="asterisk">*</span></label>
+                                            <span *ngIf="officeAddress.invalid && officeAddress.touched"
+                                                class="text-danger">
+                                                Door number is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="group">
+                                            <input type="text" name="officeStreet" class="validation"
+                                                placeholder="Street" [(ngModel)]="userRegisterModel['officestreet']"
+                                                #officeStreet="ngModel" min="10" max="150" required>
+                                            <span class="highlight"></span>
+                                            <span class="bar"></span>
+                                            <label><i
+                                                    class="h5 mdi mdi-map-marker-radius menu-icon mr-2"></i>Area/Village<span class="asterisk">*</span></label>
+                                            <span *ngIf="officeStreet.invalid && officeStreet.touched"
+                                                class="text-danger">
+                                                Area/Village is required</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="group">
+                                            <select class="select-text validation" name="varocountry"
+                                                [(ngModel)]="userRegisterModel['officecountryid']"
+                                                #varocountry="ngModel"
+                                                (change)="changeCountry(userRegisterModel['officecountryid'], true)"
+                                                required>
+                                                <option *ngFor="let country of officeCountries"
+                                                    [value]="country.countryid">
+                                                    {{country.countryname}}</option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-map menu-icon mr-2"></i>Country<span class="asterisk">*</span></label>
+                                            <span *ngIf="varocountry.invalid && varocountry.touched"
+                                                class="text-danger">
+                                                Choose Country</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="group">
+                                            <select class="select-text validation" name="varostate"
+                                                [(ngModel)]="userRegisterModel['officestateid']" #varostate="ngModel"
+                                                (change)="changeState(userRegisterModel['officestateid'], true)"
+                                                [disabled]="!(officeStates.length > 0)" required>
+                                                <option *ngFor="let state of officeStates" [value]="state.stateid">
+                                                    {{state.statename}}</option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-map-marker-circle menu-icon mr-2"></i>State<span class="asterisk">*</span></label>
+                                            <span *ngIf="varostate.invalid && varostate.touched" class="text-danger">
+                                                Choose State</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="group">
+                                            <select class="select-text validation" name="varocity"
+                                                [(ngModel)]="userRegisterModel['officecityid']" #varocity="ngModel"
+                                                [disabled]="!(officeCities.length > 0)" required>
+                                                <option value="0">--Select City--</option>
+                                                <option *ngFor="let city of officeCities" [value]="city.cityid">
+                                                    {{city.cityname}}</option>
+                                            </select>
+                                            <span class="select-highlight"></span>
+                                            <span class="select-bar"></span>
+                                            <label class="select-label"><i
+                                                    class="h5 mdi mdi-city menu-icon mr-2"></i>City<span class="asterisk">*</span></label>
+                                            <span *ngIf="varocity.invalid && varocity.touched" class="text-danger">
+                                                Choose City</span>
+                                            <span
+                                                *ngIf="userRegisterModel['officestateid'] != 0 && userRegisterModel['officecityid'] == 0 || varocity.invalid && varocity.touched"
+                                                class="text-danger">
+                                                Choose City</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2" class="cust-list-item"
+            [ngStyle]="active == 2 ? {'background-color': '#ceb07f','color':'white'} : {'background-color': '#f5f5f5'}">
+            <span>Bank Information</span>
+            <ng-template ngbNavContent>
+                <form #bankForm="ngForm">
+                    <div class="row m-0">
+                        <div class="col-md-4 offset-md-4">
+                            <div class="row mb-2 bg-white py-4" style="box-shadow: 0 0 15px 0 rgb(158 107 37 / 55%);">
+                                <div class="col-md-12">
+                                    <div class="group">
+                                        <select class="select-text validation" name="role"
+                                            [(ngModel)]="userRegisterModel['bankid']" #bankIdVar="ngModel" required>
+                                            <option *ngFor="let bank of bankMaster" [value]="bank.bankid">
+                                                {{bank.bankname}}
+                                            </option>
+                                        </select>
+                                        <span class="select-highlight"></span>
+                                        <span class="select-bar"></span>
+                                        <label class="select-label"><i class="h5 mdi mdi-bank menu-icon mr-2"></i>Select
+                                            Bank<span class="asterisk">*</span></label>
+                                        <span *ngIf="bankIdVar.invalid && bankIdVar.touched" class="text-danger">
+                                            Choose Bank</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="group">
+                                        <input type="text" name="ifscCode" class="validation" uppercase
+                                            placeholder="ABCD1234567" [(ngModel)]="userRegisterModel['ifsccode']"
+                                            #ifscCode="ngModel" pattern="[A-Z]{4}[0-9]{7}" minlength="11" maxlength="11"
+                                            required>
+                                        <span class="highlight"> </span>
+                                        <span class="bar"> </span>
+                                        <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>IFSC<span class="asterisk">*</span></label>
+                                        <div *ngIf="ifscCode.errors?.pattern" class="text-danger">Enter Valid IFSC Code
+                                        </div>
+                                        <span *ngIf="ifscCode.invalid && ifscCode.touched && !ifscCode.errors?.pattern"
+                                            class="text-danger">
+                                            IFSC is required</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="group">
+                                        <input type="text" name="accountName" class="validation"
+                                            (keypress)="isCharacter($event)" oncopy="return false"
+                                            onpaste="return false" placeholder="Account Name"
+                                            [(ngModel)]="userRegisterModel['accountname']" #accountName="ngModel"
+                                            required>
+                                        <span class="highlight"> </span>
+                                        <span class="bar"> </span>
+                                        <label><i class="h5 mdi mdi-account-box menu-icon mr-2"></i>Account Name<span class="asterisk">*</span></label>
+                                        <span *ngIf="accountName.invalid && accountName.touched" class="text-danger">
+                                            Account Name is required</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="group pb-3">
+                                        <input type="password" name="accountNumber" class="validation"
+                                            placeholder="Account Number"
+                                            [(ngModel)]="userRegisterModel['accountnumber']" #accountNumber="ngModel"
+                                            inputmode="numeric" (keypress)="isNumber($event)" minlength=7 maxlength=18
+                                            pattern="^(0*[1-9][0-9]*)$" required>
+                                        <span class="highlight"> </span>
+                                        <span class="bar"> </span>
+                                        <label><i class="h5 mdi mdi-numeric menu-icon mr-2"></i>Account Number<span class="asterisk">*</span></label>
+                                        <span
+                                            *ngIf="accountNumber.invalid && accountNumber.touched && !accountNumber.errors?.pattern && !accountNumber.errors?.minlength && !accountNumber.errors?.maxlength"
+                                            class="text-danger">
+                                            Account Number is required</span>
+                                        <div *ngIf="accountNumber.errors?.pattern && !accountNumber.errors?.minlength && !accountNumber.errors?.maxlength"
+                                            class="text-danger">Enter Valid
+                                            Account Number</div>
+                                        <div *ngIf="accountNumber.errors?.minlength || accountNumber.errors?.maxlength && !accountNumber.errors?.pattern"
+                                            class="text-danger">Account Number
+                                            Minimum 7 numbers and Maximum 18 numbers required</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="group mb-3">
+                                        <input type="text" name="caccountNumber" class="validation"
+                                            placeholder="Re-Enter Account Number"
+                                            [(ngModel)]="userRegisterModel['reaccountnumber']" #caccountNumber="ngModel"
+                                            pattern="{{ userRegisterModel['accountnumber']}}" inputmode="numeric"
+                                            (keypress)="isNumber($event)" minlength=7 maxlength=18 required>
+                                        <span class="highlight"> </span>
+                                        <span class="bar"> </span>
+                                        <label><i class="h5 mdi mdi-numeric menu-icon mr-2"></i>Re-enter Account
+                                            Number<span class="asterisk">*</span></label>
+                                        <span
+                                            *ngIf="caccountNumber.invalid && caccountNumber.touched && !caccountNumber.errors?.pattern && !caccountNumber.errors?.minlength && !caccountNumber.errors?.maxlength"
+                                            class="text-danger">
+                                            Account Number is required</span>
+                                        <div *ngIf="caccountNumber.errors?.pattern && !caccountNumber.errors?.minlength && !caccountNumber.errors?.maxlength"
+                                            class="text-danger">Account Number is Mismatch</div>
+                                        <div *ngIf="caccountNumber.errors?.minlength || caccountNumber.errors?.maxlength && !caccountNumber.errors?.pattern"
+                                            class="text-danger">Account Number
+                                            Minimum 7 numbers and Maximum 18 numbers required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="3" class="cust-list-item"
+            [ngStyle]="active == 3 ? {'background-color': '#ceb07f','color':'white'} : {'background-color': '#f5f5f5'}">
+            <span>Documents
+            </span>
+            <ng-template ngbNavContent let-active>
+                <form #uploadForm="ngForm">
+                    <div class="row bg-white px-md-3 px-sm-0 py-3 m-0">
+                        <div class="col-12">
+                            <h4 class="mb-3">Upload Your Documents</h4>
+                        </div>
+                        <div class="col-md-8 offset-md-2 mb-3">
+                            <div class="row p-3 border m-0">
+                                <div class="col-md-8 px-0 px-md-3">
+                                    <div class="col-md-12 p-0">
+                                        <p>PAN Card</p>
+                                    </div>
+                                    <div class="col-md-12 p-0 mb-3">
+                                        <input type="file" class="custom-file-input" accept=".jpg, .jpeg"
+                                            name="panImageSrc" [(ngModel)]="userImageModel['panImageSrc']"
+                                            (change)="uploadPAN($event)" [disabled]="userLocalModel['panImage']" />
+                                        <label class="custom-file-label" for="validatedCustomFile">Select
+                                            Images..</label>
+                                    </div>
+                                    <div class="row p-0 align-items-center"
+                                        *ngIf="!isDocument && userImageModel['panImageSrc']">
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-download mr-1" [href]="userImageModel['panImageSrc']"
+                                                download>
+                                                <i class="mdi mdi-arrow-down-bold-circle-outline icon-pos"></i>
+                                            </a> <span class="h5 m-0"> Download </span>
+                                        </div>
+
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-delete mr-1"
+                                                (click)="deleteDoc(userImageModel['panImageId'])">
+                                                <i class="mdi mdi-delete-forever icon-pos"></i>
+                                            </a>
+                                            <span class="h5 m-0"> Delete </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4" *ngIf="userImageModel['panImageSrc']">
+                                    <img [src]="userImageModel['panImageSrc']" class="" height="115px" width="100%"
+                                        (click)="openImageModal(userImageModel['panImageSrc'])" />
+                                    <span *ngIf="!isPanView"><a href="javascript:" class="text-muted remove-img"
+                                            (click)="panRemove()"><i class="mdi mdi-delete-forever"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 offset-md-2 mb-3">
+                            <div class="row p-3 border m-0">
+                                <div class="col-md-8 px-0 px-md-3">
+                                    <div class="col-md-12 p-0">
+                                        <p>Identity Proof</p>
+                                    </div>
+                                    <div class="col-md-12 p-0 mb-3">
+                                        <input type="file" class="custom-file-input" accept=".jpg, .jpeg"
+                                            name="idImageSrc" [(ngModel)]="userImageModel['idImageSrc']"
+                                            (change)="uploadIdProof($event)" [disabled]="userLocalModel['idImage']" />
+                                        <label class="custom-file-label" for="validatedCustomFile">Select
+                                            Images..</label>
+                                    </div>
+                                    <div class="row p-0 align-items-center"
+                                        *ngIf="!isDocument && userImageModel['idImageSrc']">
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-download mr-1" [href]="userImageModel['idImageSrc']" download>
+                                                <i class="mdi mdi-arrow-down-bold-circle-outline icon-pos"></i>
+                                            </a> <span class="h5 m-0"> Download </span>
+                                        </div>
+
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-delete mr-1" (click)="deleteDoc(userImageModel['idImageId'])">
+                                                <i class="mdi mdi-delete-forever icon-pos"></i>
+                                            </a>
+                                            <span class="h5 m-0"> Delete </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" *ngIf="userImageModel['idImageSrc']">
+                                    <img [src]="userImageModel['idImageSrc']" class="" height="115px" width="100%"
+                                        (click)="openImageModal(userImageModel['idImageSrc'])" />
+                                    <span *ngIf="!isPanView"><a href="javascript:" class="text-muted remove-img"
+                                            (click)="idRemove()"><i class="mdi mdi-delete-forever"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 offset-md-2 mb-3">
+                            <div class="row p-3 border m-0">
+                                <div class="col-md-8 px-0 px-md-3">
+                                    <div class="col-md-12 p-0">
+                                        <p> Address Proof</p>
+                                    </div>
+                                    <div class="col-md-12 p-0 mb-3">
+                                        <input type="file" class="custom-file-input" accept=".jpg, .jpeg"
+                                            name="addressImageSrc" [(ngModel)]="userImageModel['addressImageSrc']"
+                                            (change)="uploadAddressProof($event)"
+                                            [disabled]="userLocalModel['addressImage']" />
+                                        <label class="custom-file-label" for="validatedCustomFile">Select
+                                            Images..</label>
+                                    </div>
+                                    <div class="row p-0 align-items-center"
+                                        *ngIf="!isDocument && userImageModel['addressImageSrc']">
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-download mr-1" [href]="userImageModel['addressImageSrc']"
+                                                download>
+                                                <i class="mdi mdi-arrow-down-bold-circle-outline icon-pos"></i>
+                                            </a> <span class="h5 m-0"> Download </span>
+                                        </div>
+
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-delete mr-1"
+                                                (click)="deleteDoc(userImageModel['addressImageId'])">
+                                                <i class="mdi mdi-delete-forever icon-pos"></i>
+                                            </a>
+                                            <span class="h5 m-0"> Delete </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4" *ngIf="userImageModel['addressImageSrc']">
+                                    <img [src]="userImageModel['addressImageSrc']" class="" height="115px" width="100%"
+                                        (click)="openImageModal(userImageModel['addressImageSrc'])" />
+                                    <span *ngIf="!isPanView"><a href="javascript:" class="text-muted remove-img"
+                                            (click)="addressRemove()"><i class="mdi mdi-delete-forever"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 offset-md-2 mb-3">
+                            <div class="row p-3 border m-0">
+                                <div class="col-md-8 px-0 px-md-3">
+                                    <div class="col-md-12 p-0">
+                                        <p>Cancellation Check</p>
+                                    </div>
+                                    <div class="col-md-12 p-0 mb-3">
+                                        <input type="file" class="custom-file-input" accept=".jpg, .jpeg"
+                                            name="canImageSrc" [(ngModel)]="userImageModel['canImageSrc']"
+                                            (change)="uploadcancellationProof($event)"
+                                            [disabled]="userLocalModel['canImage']" />
+                                        <label class="custom-file-label" for="validatedCustomFile">Select
+                                            Images..</label>
+                                    </div>
+                                    <div class="row p-0 align-items-center"
+                                        *ngIf="!isDocument && userImageModel['canImageSrc']">
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-download mr-1" [href]="userImageModel['canImageSrc']"
+                                                download>
+                                                <i class="mdi mdi-arrow-down-bold-circle-outline icon-pos"></i>
+                                            </a> <span class="h5 m-0"> Download </span>
+                                        </div>
+
+                                        <div class="col-md-6 d-flex align-items-center mb-3">
+                                            <a class="btn-delete mr-1"
+                                                (click)="deleteDoc(userImageModel['canImageId'])">
+                                                <i class="mdi mdi-delete-forever icon-pos"></i>
+                                            </a>
+                                            <span class="h5 m-0"> Delete </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" *ngIf="userImageModel['canImageSrc']">
+                                    <img [src]="userImageModel['canImageSrc']" class="" height="115px" width="100%"
+                                        (click)="openImageModal(userImageModel['canImageSrc'])" />
+                                    <span *ngIf="!isPanView"><a href="javascript:" class="text-muted remove-img"
+                                            (click)="canRemove()"><i class="mdi mdi-delete-forever"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 my-4  text-center">
+                            <input type="checkbox" name="acceptTerms" id="acceptTerms" class="form-check-input mt-1"
+                                [(ngModel)]="userImageModel['acceptTerms']" #acceptTerms="ngModel"
+                                [ngClass]="{'is-invalid':!acceptTerms.valid && (acceptTerms.dirty || acceptTerms.touched) }"
+                                required>
+                            <label for="acceptTerms" class="form-check-label"></label>
+                            <span> By clicking submit, you agree to</span> <a target="_blank"
+                                href="https://www.google.co.in/">
+                                <u style="color: rgb(0, 153, 255); font-weight: 500;"> the Privacy Policy and Our Terms
+                                    and Conditions.<span class="asterisk">*</span></u> </a>
+                            <label *ngIf="acceptTerms.errors?.required" class="text-danger"
+                                id="validation-eventStatus-error"
+                                class="error jquery-validation-error small form-text invalid-feedback">
+                                Please Accept Terms & Conditions is required</label>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+        </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mb-0 grid-bg">
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div style="float: left; padding: 15px;">
+                <button type="button" class="ml-1 btn btn-cancel btn-sm" (click)="previous()">{{previousbtn}}</button>
+            </div>
+        </div>
+        <div class="col-6">
+            <div style="float: right; padding: 15px;">
+                <button *ngIf="active !== 3" type="button" class="ml-auto mr-1 btn btn-accept btn-sm"
+                    (click)="next()">Next</button>
+                <button *ngIf="active === 3" type="button" class="ml-auto mr-1 btn btn-save btn-sm"
+                    (click)="submit()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #imageModal>
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" (click)="closeModel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card lesson-border">
+                <img class="card-img-top" src="{{preview}}" alt="Card image cap">
+            </div>
+        </div>
+    </ng-template>
+</div>

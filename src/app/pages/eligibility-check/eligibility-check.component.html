@@ -1,0 +1,198 @@
+<ngx-spinner></ngx-spinner>
+<div class="card-heading">
+    <span>Verification process</span>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row m-0" *ngIf="status == 'true'">
+            <div class="col-12 alert alert-danger" role="alert">
+                <h4 class="alert-heading mb-2"><strong>Reject reason:-</strong></h4>
+                {{ remarks }}
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="row m-0 box-2">
+                <div class="col-md-10 p-0 border-bottom">
+                    <form #eligibilityCheckForm="ngForm">
+                        <div *ngFor="let item of finalArray; let i = index">
+                            <!-- Eligibility Qustions -->
+                            <div class="row mx-0">
+                                <span class="qs-font text-center" *ngIf="item.userquestions">
+                                    {{i + 1}}. {{ item.userquestions }}?</span>
+                                <span class="qs-font text-center" *ngIf="item.userquestions == null">
+                                    {{i + 1}}. {{ item.eligibilityquestion }}?</span>
+                            </div>
+                            <div class="row mx-0">
+                                <!-- Loan TextBox -->
+                                <div class="col-md-5">
+                                    <div *ngIf="i == 3">
+                                        <div class="mb-3" *ngFor="let loan of loanItems; let loanIndex = index">
+                                            <span class=" mb-2" *ngIf="loan.UQuestions">
+                                                {{4}}.{{loanIndex + 1}}. {{ loan.UQuestions }}?</span>
+                                            <span class=" mb-2" *ngIf="loan.UQuestions == null">
+                                                {{4}}.{{loanIndex + 1}}. {{ loan.EQuestions }}?</span>
+                                            <input class="form-control" placeholder="Answer" type="text"
+                                                name="loanAnswer{{loanIndex}}"
+                                                [(ngModel)]="loanItems[loanIndex]['Answers']" #loanAnswer="ngModel"
+                                                required [readonly]="status == 'authorized'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mx-0 my-3">
+                                <div class="form-group w-100 m-0">
+                                    <!-- Text Box -->
+                                    <div class="col-md-10" *ngIf="item.eligibilitycontrolid == 5">
+                                        <input class="form-control col-md-5 ml-0" name="answer{{i}}"
+                                            [(ngModel)]="finalArray[i]['answers']" #answer="ngModel"
+                                            placeholder="Answer" type="text" maxlength="255" required
+                                            [readonly]="status == 'authorized'">
+                                    </div>
+                                    <!-- Check Box -->
+                                    <div class="col-md-5 p-0 ml-4 d-flex align-items-center"
+                                        *ngIf="item.eligibilitycontrolid == 1">
+                                        <input class="form-check-input mt-0" type="checkbox" name="checkboxAnswer{{i}}"
+                                            [checked]="item['answers'] == 'true'"
+                                            (change)="checkBoxChange($event, item)" [disabled]="status == 'authorized'">
+                                        <span *ngIf="item.eligibilityid == 18"><i class="mdi mdi-eye h3 mb-0 ml-4"
+                                                title="view" style="color:rgb(34, 33, 33);"
+                                                (click)="openImageModal(userImageModel['panImageSrc'])"></i></span>
+                                        <span *ngIf="item.eligibilityid == 19"><i class="mdi mdi-eye h3 mb-0 ml-4"
+                                                title="view" style="color:rgb(34, 33, 33);"
+                                                (click)="openImageModal(userImageModel['addressImageSrc'])"></i></span>
+                                        <span *ngIf="item.eligibilityid == 20"><i class="mdi mdi-eye h3 mb-0 ml-4"
+                                                title="view" style="color:rgb(34, 33, 33);"
+                                                (click)="openImageModal(profImage)"></i></span>
+                                        <span *ngIf="item.eligibilityid == 21"><i class="mdi mdi-eye h3 mb-0 ml-4"
+                                                title="view" style="color:rgb(34, 33, 33);"
+                                                (click)="openBankModal()"></i></span>
+                                    </div>
+                                    <!-- Radio Button -->
+                                    <div class="c-flex" *ngIf="item.eligibilitycontrolid == 4">
+                                        <div class="form-check ml-4"
+                                            *ngFor="let radio of radioButtonMasters; let radioIndex = index">
+                                            <input class="form-check-input" type="radio" name="radioAnswer{{i}}"
+                                                value="option1" [checked]="item['answers'] == radio"
+                                                (change)="radioChange(radio, item)" required
+                                                [disabled]="status == 'authorized'">
+                                            <label class="form-check-label ml-3 " for="exampleRadios1">
+                                                {{radio}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- Multi select Dropdown -->
+                                    <div  class="col-md-10" *ngIf="item.eligibilitycontrolid == 2 || item.eligibilitycontrolid == 3">
+                                        <div class="form-group col-md-5 mb-0 p-0 ml-0" *ngIf="i === 1">
+                                            <ng-multiselect-dropdown [placeholder]="'Select Loans'" [data]="loanMasters"
+                                                [(ngModel)]="selectedItems" [settings]="loanDropdownSettings"
+                                                [ngModelOptions]="{standalone: true}"
+                                                (onSelect)="onItemSelect($event, item)"
+                                                (onDeSelect)="onItemDeSelect($event, item)" required
+                                                [disabled]="status == 'authorized'">
+                                            </ng-multiselect-dropdown>
+                                        </div>
+                                    </div>
+                                    <!-- Single select Dropdown -->
+                                    <div  class="col-md-10" *ngIf="item.eligibilitycontrolid == 2 || item.eligibilitycontrolid == 3">
+                                        <div class="form-group col-md-5 mb-0 p-0 ml-0" *ngIf="i === 7">
+                                            <ng-multiselect-dropdown [placeholder]="'Select Type'"
+                                                [data]="aboutFingrowMasters" [(ngModel)]="finSelectedItems"
+                                                [settings]="fingrowDropdownSettings"
+                                                [ngModelOptions]="{standalone: true}"
+                                                (onSelect)="onItemSelectFingrow($event, item)"
+                                                (onDeSelect)="onItemDeSelectFingrow(item)" required
+                                                [disabled]="status == 'authorized'">
+                                            </ng-multiselect-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #rejectContent>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label>Remarks</label>
+                                        <textarea type="text" name="remarks" class="form-control"
+                                            [(ngModel)]="remarksValue" placeholder="Remarks" #remarks="ngModel"
+                                            required>
+                                            </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer mpr-btn-padding">
+                                <button type="button" class="btn btn-save px-4 btn-sm mt-4"
+                                    (click)="onSubmit('R')">Yes</button>
+                                <button type="button" class="btn btn-reject px-4 btn-sm mt-4"
+                                    (click)="closeModel()">No</button>
+                            </div>
+                        </ng-template>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center">
+                <div *ngIf="status !== 'authorized' && status !== 'true'">
+                    <button class="btn btn-cancel btn-sm mt-4" [routerLink]="['/user-list']" type="button"> Cancel
+                    </button>
+                    <button class="btn btn-reject btn-sm mt-4" type="button" (click)="openRejectModel()"
+                        *ngIf="userType == constants.CHECKER_TYPE_CODE || userType == constants.SUPER_ADMIN_TYPE_CODE">
+                        Reject </button>
+                    <button class="btn btn-accept btn-sm mt-4" type="button" (click)="onSubmit('P')"
+                        *ngIf="userType == constants.MAKER_TYPE_CODE || userType == constants.SUPER_ADMIN_TYPE_CODE">
+                        Draft </button>
+                    <button class="btn btn-save btn-sm mt-4" type="button" (click)="onSubmit('A')"
+                        *ngIf="userType == constants.CHECKER_TYPE_CODE || userType == constants.SUPER_ADMIN_TYPE_CODE">
+                        Accept </button>
+                </div>
+                <div *ngIf="status == 'authorized' || status == 'true'">
+                    <button class="btn btn-cancel btn-sm mt-4" [routerLink]="['/user-list']" type="button"> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #imageModal>
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" (click)="closeModel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card lesson-border">
+                <img class="card-img-top" src="{{preview}}" alt="Card image cap">
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #bankDetailsModel>
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" (click)="closeModel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <td><b>Bank Name </b></td>
+                    <td><b>:</b></td>
+                    <td>{{bankName}}</td>
+                </tr>
+                <tr>
+                    <td><b>Account Name</b></td>
+                    <td><b>:</b></td>
+                    <td>{{accountName}}</td>
+                </tr>
+                <tr>
+                    <td><b>Account Number</b></td>
+                    <td><b>:</b></td>
+                    <td>{{accountNumber}}</td>
+                </tr>
+                <tr>
+                    <td><b>IFSC Code</b></td>
+                    <td><b>:</b></td>
+                    <td>{{ifscCode}}</td>
+                </tr>
+            </table>
+        </div>
+    </ng-template>
+</div>

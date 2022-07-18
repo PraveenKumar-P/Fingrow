@@ -1,0 +1,193 @@
+.cust-date ::ng-deep ngb-datepicker {
+    width: 300px;
+}
+
+.cust-date::ng-deep .ngb-dp-day {
+    height: 2rem;
+}
+
+.cust-width-drop
+{
+    overflow: hidden;
+    width: 160px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cust-list-item {
+    padding: 10px;
+}
+
+.cust-pre-fill {
+    margin-left: 8px;
+}
+
+.cust-prof-img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.prof-upload-btn
+{
+    margin-top: 25px;
+}
+
+.btn-secondary {
+    background-color: rgb(108, 117, 125);
+}
+
+select.form-control {
+    color: #343a40;
+}
+
+input,select {
+    margin-bottom: 0px;
+//    border: 1px solid rgb(108, 117, 125);
+}
+
+.cust-drop-margin-bottom {
+    margin-bottom: 5px; 
+}
+
+.delete-doc {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.profile-section
+{
+    text-align: center;
+}
+
+.user-img-upload{
+    position: absolute;
+    left: 56px;
+    top: 56px;
+}
+
+.user-img-position {
+    position: relative;
+    top: -4rem;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px 0 #9e6b258c;
+}
+
+.btn-img-add {
+    height: 20px;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: auto;
+    font-size: 2rem;
+    background: linear-gradient(360deg, #76432a, #a05e2b);
+    padding: 15px;
+    border: 1px solid #76432a;
+    border-radius: 50px;
+    color: #fff;
+}
+
+.profile {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.icon-pos{
+    position: relative;
+    top: 0px;
+}
+
+.btn-action {
+    height: 26px;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 1.7rem;
+    background: linear-gradient(360deg, #76432a, #a05e2b);
+    padding: 20px;
+    border: 1px solid #76432a;
+    border-radius: 50px;
+    color: #fff;
+}
+
+.btn-action:hover {
+    background: linear-gradient(360deg, #a05e2b, #76432a);
+}
+
+.btn-download{
+    height: 26px;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 1.7rem;
+    background: linear-gradient(360deg, #2a6b76, #03a9f4);
+    padding: 13px;
+    border: 2px solid #1390c0;
+    border-radius: 50px;
+    color: #fff;
+}
+
+.btn-download:hover{
+    background: #fff;
+    padding: 13px;
+    border: 2px solid #03a9f4;
+    border-radius: 50px;
+    color: #03a9f4;
+}
+
+.btn-delete {
+    height: 26px;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 1.1rem;
+    background: linear-gradient(360deg, #c52f00, #f44336);
+    padding: 13px;
+    border: 2px solid #e33c22;
+    border-radius: 50px;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #ffffff;
+    padding: 13px;
+    border: 2px solid #e33c22;
+    border-radius: 50px;
+    color: #f44336;
+}
+
+// .ng-invalid:not(form).ng-touched{
+//     border: 1px solid red;  
+// }
+
+@media (max-width: 640px){
+    .user-img-position{
+        position: relative;
+        top: -4rem;
+        border: 5px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 15px 0 #9e6b258c;
+        margin-left: auto;
+    }
+}
+

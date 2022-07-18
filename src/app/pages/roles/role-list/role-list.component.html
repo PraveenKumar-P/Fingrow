@@ -1,0 +1,120 @@
+<ngx-spinner></ngx-spinner>
+<div class="card-heading">
+    <span>Role List</span>
+</div>
+<div class="card">
+    <div class="card-body">
+        <!-- SEARCH -->
+        <div class="col-sm-12 search-hero ml-auto mb-3 mid-y p-0 d-flex">
+            <!-- <mat-icon>search</mat-icon> -->
+            <input #filter placeholder="Search.."
+                class="form-control form-control-sm rounded-pill col-md-4 border-dark mr-2"
+                (keyup)="applyFilter($event)">
+            <button type="button" class="btn-add ml-auto" *ngIf="isAdd" [routerLink]="['/role-create-edit']">
+                +
+            </button>
+        </div>
+        <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource" matSort class="" style="white-space: nowrap;">
+                <ng-container matColumnDef="index">
+                    <th mat-header-cell *matHeaderCellDef>S.No</th>
+                    <td mat-cell *matCellDef="let element; let i = index;">{{i+1+(paginator.pageIndex *
+                        paginator.pageSize)}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="rolename">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Role Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.rolename}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="rolecreatedon">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
+                    <td mat-cell *matCellDef="let element"> {{element.rolecreatedon | date:'dd-MM-yyyy'}}
+                        {{element.rolecreatedon | date:'h:mm:ss a' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="roleupdatedon">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated Date</th>
+                    <td mat-cell *matCellDef="let element"> {{element.roleupdatedon | date:'dd-MM-yyyy'}}
+                        {{element.roleupdatedon | date:'h:mm:ss a' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                        <span *ngIf="isStatus"><i class="mdi mdi-check-circle h4 mb-0" title="Status"
+                                *ngIf="element.rolestatus == true" style="color:#52b952;"
+                                (click)="openStatusModel(element.rolestatus,element.roleid)"></i>
+                            <i class="mdi mdi-close-circle h4 mb-0" title="Status" *ngIf="element.rolestatus == false"
+                                style="color:#ff2a2a" (click)="openStatusModel(element.rolestatus,element.roleid)">
+                            </i></span>
+                        <span *ngIf="isEdit && element.rolestatus == true"><i class="mdi mdi-lead-pencil h4 ml-3 mb-0"
+                                style="color: #00b3ff;" title="Edit" (click)="roleEdit(element.roleid)"> </i></span>
+                        <span *ngIf="isDelete"><i class="mdi mdi-delete-forever h4 ml-3 mb-0" title="Delete"
+                                style="color: #ff2a2a;" (click)="openRemoveModel(element.roleid)"></i></span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="permission">
+                    <th mat-header-cell *matHeaderCellDef>Permission</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="mdi mdi-key-change h4 m-0 px-2" style="color: #c08bd2;" title="RolePermissions"
+                            *ngIf="isPermission && element.rolestatus == true"
+                            (click)="rolePermission(element.roleid, element.rolename)">
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-template #statusChangeContent>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p class="text-center mb-0">Are you sure you want to <b>{{statusText}}</b> this user..?
+                            </p>
+                        </div>
+                        <div class="modal-footer justify-content-center border-0">
+                            <button type="button" class="btn btn-save btn-sm px-4"
+                                (click)="roleStatusChange()">Yes</button>
+                            <button type="button" class="btn btn-reject btn-sm px-4" (click)="closeModel()">No</button>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template #removeRoleContent>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p class="text-center mb-0">Are you
+                                sure you want to <b style="color:#ff2a2a;">Delete User</b> permanently..?
+                            </p>
+                        </div>
+                        <div class="modal-footer justify-content-center border-0">
+                            <button type="button" class="btn btn-save btn-sm px-4" (click)="removeRoles()">Yes</button>
+                            <button type="button" class="btn btn-reject btn-sm px-4" (click)="closeModel()">No</button>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-container matColumnDef="noData">
+                    <mat-footer-cell *matFooterCellDef colspan="5">
+                        <p style="width: 100%;text-align: center; position: absolute;">
+                            {{ dataSource.data.length != 0 && dataSource.filteredData.length == 0 ? 'No result(s)
+                            found'
+                            : 'No data available' }}
+                        </p>
+                    </mat-footer-cell>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <mat-row *ngIf="dataSource.data.length == 0">
+                    {{ dataSource.data.length != 0 && dataSource.filteredData.length == 0 ? 'No result(s) found' :
+                    'No data available' }}
+                </mat-row>
+                <mat-footer-row *matFooterRowDef="['noData']"
+                    [ngClass]="{'hidenoData':!(dataSource.data.length==0 || dataSource.filteredData.length == 0)}">
+                </mat-footer-row>
+            </table>
+            <mat-paginator #paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<ngx-spinner></ngx-spinner>
+<div class="d-flex align-items-center auth px-0"
+    style="display: flex !important;align-items: center !important;align-content: center;align-self: center;height: 100vh;background: url(/assets/images/fingrow_bg.jpg);background-size: cover;background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+    <div class="container">
+        <div class="w-100 mx-0">
+            <form (ngSubmit)="checkOTPSubmit()" #otpForm="ngForm">
+                <div class="col-md-6 mx-auto">
+                    <div class="auth-form-light text-left pb-4 px-4 px-sm-5"
+                        style="border-radius: 40px; border: 7px solid #764229;">
+                        <div style="text-align: center; margin-bottom: -10px;">
+                            <img src="assets/images/fingrow_logo.png" alt="logo" class="mx-auto w-own">
+                        </div>
+                        <div class="brand-logo mb-5 mt-4" style="text-align: center;">
+                            <h3 style="color: #8e4c2c;">
+                                Forgot Password
+                            </h3>
+                        </div>
+                        <div class="group">
+                            <input type="email" class="validation" placeholder="Username"
+                                [(ngModel)]="otpModel['UserName']" #userName="ngModel" name="userName"
+                                pattern="(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)" required
+                                [readonly]="isReadonly">
+                            <span class="highlight"> </span>
+                            <span class="bar"> </span>
+                            <label><i class="h5 mdi mdi-email menu-icon mr-2"></i>Email<span class="asterisk">*</span></label>
+                            <div *ngIf="userName.invalid && userName.touched" class="text-danger">
+                                Email is required</div>
+                        </div>
+                        <div class="group" *ngIf="checkOTP">
+                            <input type="password" class="validation" [(ngModel)]="otpModel['OTP']" #otp="ngModel"
+                                name="otp" placeholder="Enter OTP" (keypress)="isNumber($event)" maxlength="5" required>
+                            <span class="highlight"> </span>
+                            <span class="bar"> </span>
+                            <label><i class="h5 mdi mdi-account menu-icon mr-2"></i>OTP<span class="asterisk">*</span></label>
+                            <div *ngIf="otp.invalid && otp.touched" class="text-danger">
+                                OTP is required</div>
+                        </div>
+                        <div class="my-2 d-flex justify-content-between align-items-center" *ngIf="checkOTP">
+                            <div class="form-check">
+                                <h3>OTP: {{otp}}</h3>
+                            </div>
+                            <a (click)="reSendOtp(otpModel['UserName'])" style="cursor: pointer;"
+                                class="auth-link text-black">Resend
+                                OTP?</a>
+                        </div>
+                        <div class="row py-3">
+                            <div class="col-12 text-center">
+                                <button class="btn btn-cancel btn-sm mr-2" type="button"
+                                    [routerLink]="['/auth/login']">Back</button>
+                                <button class="btn btn-save btn-sm" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

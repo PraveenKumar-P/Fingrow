@@ -1,0 +1,47 @@
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row shadow">
+  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center theme-border">
+    <a class="navbar-brand brand-logo"><img src="assets/images/fingrow_logo.png" alt="logo"
+        style="width: auto; height: auto;" /></a>
+    <a class="navbar-brand brand-logo-mini"><img src="assets/images/fingrow_logo_sm.png" alt="logo"
+        style="width: auto; height: auto;" /></a>
+  </div>
+  <div class="navbar-menu-wrapper d-flex align-items-stretch">
+    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize"
+      (click)="toggleSidebar()">
+      <span class="mdi mdi-menu"></span>
+    </button>
+    <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item nav-profile dropdown logger-details"  ngbDropdown>
+        <a class="nav-link dropdown-toggle" id="profileDropdown" ngbDropdownToggle>
+          <img src="{{ profilePicture }}" height="40" width="40" class="rounded-circle" />
+          <!-- <span class="availability-status online"></span> -->
+          <div class="nav-profile-text ml-2">
+            <small class="text-white" style="text-shadow: -1px 0px black !important;">{{userType}}</small>
+            <p class="mb-1 text-black text-white" style="text-shadow: -1px 0px black !important;font-size: 13px;">
+              {{userName}}</p>
+          </div>
+        </a>
+        <div class="dropdown-menu navbar-dropdown drop-align" ngbDropdownMenu aria-labelledby="profileDropdown"
+          style="width: min-content;">
+          <a class="dropdown-item" [routerLink]="['user-profile']" (click)="clear()">
+            <i class="mdi mdi-cached mr-2 text-success"></i>
+            Profile
+          </a>
+          <a class="dropdown-item" [routerLink]="['auth/change-password']" (click)="clear()">
+            <i class="mdi mdi-cached mr-2 text-success"></i>
+            Change Password
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logOut()">
+            <i class="mdi mdi-logout mr-2 text-primary"></i>
+            Signout
+          </a>
+        </div>
+      </li>
+    </ul>
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+      (click)="toggleOffcanvas()">
+      <span class="mdi mdi-menu"></span>
+    </button>
+  </div>
+</nav>
